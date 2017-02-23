@@ -28,11 +28,15 @@ public class ListFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        lAdapter = new ListAdapter(getContext(), initData());
         View view = inflater.inflate(R.layout.listlayout, container, false);
+        initView(view);
+        return view;
+    }
+
+    public void initView(View view){
+        lAdapter = new ListAdapter(getContext(), initData());
         mList = (ListView) view.findViewById(R.id.mlist);
         mList.setAdapter(lAdapter);
-        return view;
     }
 
     @Override

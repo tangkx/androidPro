@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colormainbackground">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:background="@drawable/maintopshape">
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/mac_back"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:text="机器代码十六进制编辑"
+                android:textSize="16dp"/>
+
+            <EditText
+                android:id="@+id/edit_mac_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/editshape"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="top"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/mac_back"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical"
+            android:layout_marginBottom="5dp">
+
+            <Button
+                android:id="@+id/open_mac_code"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:text="打开机器代码文件"
+                android:textSize="12dp"
+                />
+
+            <Button
+                android:id="@+id/new_mac_code"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:text="新建机器代码文件"
+                android:textSize="12dp"
+                />
+
+            <Button
+                android:id="@+id/save_mac_code"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:text="保存机器代码文件"
+                android:textSize="12dp"
+                />
+
+            <Button
+                android:id="@+id/change_mac_code"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:text="机器代码返汇编"
+                android:textSize="12dp"
+                />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/asse_back"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:text="汇编程序文本编辑"
+                android:textSize="16dp"/>
+
+            <EditText
+                android:id="@+id/edit_asse_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/editshape"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="top"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/asse_back"
+            android:layout_marginLeft="5dp"
+            android:orientation="vertical"
+            android:layout_marginBottom="5dp"
+            >
+
+            <Button
+                android:id="@+id/open_asse_code"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:text="打开汇编程序文件"
+                android:textSize="12dp"
+                />
+
+            <Button
+                android:id="@+id/new_asse_code"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:text="新建汇编程序文件"
+                android:textSize="12dp"
+                />
+
+            <Button
+                android:id="@+id/save_asse_code"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:text="保存汇编程序文件"
+                android:textSize="12dp"
+                />
+
+            <Button
+                android:id="@+id/change_asse_code"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:text="汇编转换机器码"
+                android:textSize="12dp"
+                />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

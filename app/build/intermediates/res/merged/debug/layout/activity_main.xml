@@ -5,17 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.tkx.first.MainActivity"
     android:background="@color/colormainbackground">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/top_bar"
+        android:background="@drawable/maintopshape"
+        >
+        <TextView
+            android:id="@+id/top_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="存储程序式计算机模拟平台"
+            android:textSize="18dp"
+            android:textColor="@color/colorBlack"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"/>
+        <ImageView
+            android:id="@+id/jump_to_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/jumptoedit"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@id/top_title"
+            android:layout_marginLeft="50dp"/>
+    </RelativeLayout>
     <fragment
         android:layout_width="160dp"
         android:layout_height="match_parent"
         android:name="com.tkx.first.ListFragment"
         android:id="@+id/flist"
+        android:layout_below="@id/top_bar"
+        android:layout_marginLeft="10dp"
         >
     </fragment>
 
@@ -24,7 +48,8 @@
         android:layout_width="20dp"
         android:layout_height="match_parent"
         android:layout_toRightOf="@id/flist"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_below="@id/top_bar">
 
     </LinearLayout>
 
@@ -33,7 +58,9 @@
         android:layout_height="match_parent"
         android:name="com.tkx.first.OtherFragment"
         android:id="@+id/fother"
-        android:layout_toRightOf="@id/middle">
+        android:layout_toRightOf="@id/middle"
+        android:layout_below="@id/top_bar"
+        android:layout_marginRight="10dp">
     </fragment>
 
 

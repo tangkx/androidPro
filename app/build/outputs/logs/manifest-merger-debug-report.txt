@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:2:1-21:12
+ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:2:1-22:12
 	package
 		ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:3:5-28
 		INJECTED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml
@@ -14,7 +14,7 @@ ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:2:1
 		INJECTED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml
 		INJECTED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml
 application
-ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:5:5-19:19
+ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:5:5-20:19
 MERGED from [com.android.support:appcompat-v7:25.1.1] F:\androidprojects\MyApplication\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.1.1\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-v4:25.1.1] F:\androidprojects\MyApplication\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.1.1\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-fragment:25.1.1] F:\androidprojects\MyApplication\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.1.1\AndroidManifest.xml:25:5-20
@@ -50,6 +50,10 @@ category#android.intent.category.LAUNCHER
 ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:16:17-77
 	android:name
 		ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:16:27-74
+activity#com.tkx.first.EditActivity
+ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:19:9-59
+	android:name
+		ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:19:19-47
 uses-sdk
 INJECTED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:appcompat-v7:25.1.1] F:\androidprojects\MyApplication\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.1.1\AndroidManifest.xml:21:5-23:78

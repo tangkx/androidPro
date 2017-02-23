@@ -64,6 +64,10 @@
         "source": "F:\\androidprojects\\MyApplication\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.1\\res\\drawable\\abc_ic_voice_search_api_material.xml"
     },
     {
+        "merged": "F:\\androidprojects\\MyApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\buttonshape.xml",
+        "source": "F:\\androidprojects\\MyApplication\\app\\src\\main\\res\\drawable\\buttonshape.xml"
+    },
+    {
         "merged": "F:\\androidprojects\\MyApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
         "source": "F:\\androidprojects\\MyApplication\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.1\\res\\drawable\\abc_list_selector_holo_dark.xml"
     },
@@ -138,6 +142,14 @@
     {
         "merged": "F:\\androidprojects\\MyApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background.xml",
         "source": "F:\\androidprojects\\MyApplication\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.1.1\\res\\drawable\\abc_dialog_material_background.xml"
+    },
+    {
+        "merged": "F:\\androidprojects\\MyApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\maintopshape.xml",
+        "source": "F:\\androidprojects\\MyApplication\\app\\src\\main\\res\\drawable\\maintopshape.xml"
+    },
+    {
+        "merged": "F:\\androidprojects\\MyApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\editshape.xml",
+        "source": "F:\\androidprojects\\MyApplication\\app\\src\\main\\res\\drawable\\editshape.xml"
     },
     {
         "merged": "F:\\androidprojects\\MyApplication\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
