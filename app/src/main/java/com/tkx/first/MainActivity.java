@@ -89,4 +89,11 @@ public class MainActivity extends Activity implements ListFragment.OnConnectionL
         of.setCommandText(command);
 
     }
+
+    @Override
+    public void onCountChange(String count) {
+
+        Log.d("tags","onCountChange");
+        of.setCountText(count);
+    }
 }

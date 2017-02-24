@@ -24,7 +24,7 @@ public class OtherFragment extends Fragment implements View.OnClickListener{
     private EditText e_r0, e_r1, e_r2, e_r3, e_r4, e_r5, e_account, e_command;
     private Button btn_init, btn_action, btn_auto_action;
     private OnCommandListener clistener;
-    public String s_command;
+    public String s_command, s_count;
     public Activity activity;
 
 
@@ -77,6 +77,8 @@ public class OtherFragment extends Fragment implements View.OnClickListener{
 
             case R.id.btn_init:
                 clistener.onInitAddr();
+                e_command.setText("0000");
+                e_account.setText("00");
                 Toast.makeText(getContext(),"init successful",Toast.LENGTH_LONG).show();
                 break;
             case R.id.btn_action:
@@ -107,10 +109,11 @@ public class OtherFragment extends Fragment implements View.OnClickListener{
                 try{
 
                     Log.d("reslut:","CommandRigsterRunnable");
-                    e_command.setBackgroundColor(Color.parseColor("#e9ff29"));
+                    e_command.setBackgroundColor(activity.getResources().getColor(R.color.colorselect));
+                    Thread.sleep(100);
                     e_command.setText(s_command);
                     Thread.sleep(500);
-                    e_command.setBackgroundColor(Color.TRANSPARENT);
+                    e_command.setBackground(activity.getResources().getDrawable(R.drawable.textshape));
                 }catch (Exception e){
 
 
@@ -119,5 +122,27 @@ public class OtherFragment extends Fragment implements View.OnClickListener{
             }
         });
 
+    }
+
+    public void setCountText(String count){
+        s_count = count;
+        Log.d("reslut:","setCountText"+s_count);
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+
+                    Log.d("reslut:","CommandRigsterRunnable");
+                    e_account.setBackgroundColor(activity.getResources().getColor(R.color.colorselect));
+                    Thread.sleep(100);
+                    e_account.setText(s_count);
+                    Thread.sleep(500);
+                    e_account.setBackground(activity.getResources().getDrawable(R.drawable.textshape));
+                }catch (Exception e){
+
+                }
+
+            }
+        });
     }
 }

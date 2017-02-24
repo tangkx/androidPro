@@ -164,6 +164,13 @@ public class ListFragment extends Fragment {
         return res;
     }
 
+    public String getCurrentAddr(int i){
+        String res = "";
+        SimulateData data1 = (SimulateData) mList.getItemAtPosition(i);
+        res = data1.getAddr();
+        return res;
+    }
+
     /**
      * 自动模拟机器代码执行
      */
@@ -176,10 +183,13 @@ public class ListFragment extends Fragment {
                     int i = 0;
                     Log.d("reslut:", "in startAutoSimulate");
                     Log.d("reslut:", ""+i);
-                    while(i < 30){
+                    while(true){
                         Log.d("reslut:","in while");
                         String command = getNumforAddr(i);
+                        String count = getCurrentAddr(i);
                         Log.d("reslut:", command);
+                        onConnection.onCountChange(count);
+                        Thread.sleep(500);
                         onConnection.onCommandChange(command);
                         Log.d("reslut:", "onConnection");
                         i = i + 2;
@@ -187,6 +197,10 @@ public class ListFragment extends Fragment {
                         Thread.sleep(3000);
                         mList.setSelection(i);
                         Log.d("reslut::", "setSelection");
+
+                        if(i >= 30){
+                            break;
+                        }
                     }
 
                 }catch (Exception e){
@@ -204,6 +218,7 @@ public class ListFragment extends Fragment {
     public interface OnConnectionListener {
 
         public void onCommandChange(String command);
+        public void onCountChange(String count);
     }
 
 }
