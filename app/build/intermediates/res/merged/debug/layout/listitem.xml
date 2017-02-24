@@ -7,20 +7,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/selectors">
 
         <TextView
             android:id="@+id/addrtext"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:textSize="16dp"
             android:text="00"
             android:textColor="@color/colorBlack"
             android:background="@drawable/textshape"
+            android:gravity="center"
             />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:id="@+id/numbertext"
             android:textSize="16dp"
@@ -29,7 +31,8 @@
             android:singleLine="true"
             android:maxLength="2"
             android:textColor="@color/colorBlack"
-            android:background="@drawable/textshape"/>
+            android:background="@drawable/textshape"
+            android:gravity="center"/>
 
     </LinearLayout>
 

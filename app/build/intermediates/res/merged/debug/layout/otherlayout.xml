@@ -28,22 +28,24 @@
             >
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:text="R0"
                 android:textSize="16dp"
                 android:background="@drawable/textshape"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:gravity="center"/>
             <EditText
                 android:id="@+id/edit_r0"
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:text="00"
                 android:background="@drawable/textshape"
                 android:maxLength="2"
                 android:enabled="false"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
@@ -54,22 +56,24 @@
             >
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:text="R1"
                 android:textSize="16dp"
                 android:background="@drawable/textshape"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:gravity="center"/>
             <EditText
                 android:id="@+id/edit_r1"
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:text="00"
                 android:background="@drawable/textshape"
                 android:maxLength="2"
                 android:enabled="false"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
@@ -80,22 +84,24 @@
             >
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:text="R2"
                 android:textSize="16dp"
                 android:background="@drawable/textshape"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:gravity="center"/>
             <EditText
                 android:id="@+id/edit_r2"
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:text="00"
                 android:background="@drawable/textshape"
                 android:maxLength="2"
                 android:enabled="false"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
@@ -106,22 +112,24 @@
             >
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:text="R3"
                 android:textSize="16dp"
                 android:background="@drawable/textshape"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:gravity="center"/>
             <EditText
                 android:id="@+id/edit_r3"
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:text="00"
                 android:background="@drawable/textshape"
                 android:maxLength="2"
                 android:enabled="false"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
@@ -132,22 +140,24 @@
             >
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:text="R4"
                 android:textSize="16dp"
                 android:background="@drawable/textshape"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:gravity="center"/>
             <EditText
                 android:id="@+id/edit_r4"
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:text="00"
                 android:background="@drawable/textshape"
                 android:maxLength="2"
                 android:enabled="false"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:gravity="center"/>
         </LinearLayout>
 
         <LinearLayout
@@ -158,22 +168,24 @@
             >
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:text="R5"
                 android:textSize="16dp"
                 android:background="@drawable/textshape"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:gravity="center"/>
             <EditText
                 android:id="@+id/edit_r5"
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:text="00"
                 android:background="@drawable/textshape"
                 android:maxLength="2"
                 android:enabled="false"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:gravity="center"/>
         </LinearLayout>
 
     </LinearLayout>

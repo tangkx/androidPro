@@ -67,10 +67,12 @@ public class EditActivity extends Activity implements View.OnClickListener{
         switch (v.getId()){
             case R.id.open_mac_code:
                 List<String> arr = new ArrayList<>();
-                arr.add("1000");
-                arr.add("2000");
-                arr.add("3000");
-                arr.add("4000");
+                arr.add("20");
+                arr.add("05");
+                arr.add("21");
+                arr.add("06");
+                arr.add("50");
+                arr.add("01");
                 Intent intent = new Intent();
                 intent.putExtra("mac_arr",(Serializable) arr);
                 this.setResult(RESULT_OK,intent);

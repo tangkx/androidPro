@@ -13,17 +13,19 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
+        android:orientation="horizontal"
         >
 
         <LinearLayout
             android:id="@+id/mac_back"
-            android:layout_width="240dp"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -46,7 +48,8 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/mac_back"
             android:layout_marginLeft="5dp"
@@ -107,18 +110,20 @@
 
 
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginLeft="10dp"
+        android:orientation="horizontal"
         >
 
         <LinearLayout
             android:id="@+id/asse_back"
-            android:layout_width="240dp"
+            android:layout_width="0dp"
+            android:layout_weight="2"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
@@ -142,7 +147,8 @@
 
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/asse_back"
             android:layout_marginLeft="5dp"
@@ -205,6 +211,6 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

@@ -33,6 +33,7 @@
             android:layout_toRightOf="@id/top_title"
             android:layout_marginLeft="50dp"/>
     </RelativeLayout>
+
     <fragment
         android:layout_width="160dp"
         android:layout_height="match_parent"

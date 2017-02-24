@@ -1,6 +1,7 @@
 package com.tkx.first;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,9 +18,13 @@ import java.util.List;
  * time is 2017/2/21
  */
 
-public class MainActivity extends Activity implements ListFragment.OnConnectionListener, View.OnClickListener{
+public class MainActivity extends Activity implements ListFragment.OnConnectionListener,
+        View.OnClickListener, OtherFragment.OnCommandListener{
 
     public ImageView img_jump;
+    public FragmentManager fmanage = getFragmentManager();
+    public ListFragment lf;
+    public OtherFragment of;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,11 +37,10 @@ public class MainActivity extends Activity implements ListFragment.OnConnectionL
     public void initView(){
         img_jump = (ImageView) findViewById(R.id.jump_to_edit);
         img_jump.setOnClickListener(this);
+        lf = (ListFragment) fmanage.findFragmentById(R.id.flist);
+        of = (OtherFragment) fmanage.findFragmentById(R.id.fother);
     }
-    @Override
-    public void onCommandChange(String command) {
 
-    }
 
     @Override
     public void onClick(View v) {
@@ -59,9 +63,30 @@ public class MainActivity extends Activity implements ListFragment.OnConnectionL
                 List<String> arr = (List<String>) bundle.get("mac_arr");
                 for(int i = 0; i < arr.size(); i++){
                     Log.d("reslut:",arr.get(i));
-                    Toast.makeText(this,arr.get(i),Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this,arr.get(i),Toast.LENGTH_SHORT).show();
                 }
+
+                lf.reflshList(arr);
+
                 break;
         }
+    }
+
+    @Override
+    public void onInitAddr() {
+        lf.resetList();
+    }
+
+    @Override
+    public void startAutoCommand() {
+        lf.startAutoSimulate();
+    }
+
+    @Override
+    public void onCommandChange(String command) {
+
+        Log.d("tags","onCommandChange");
+        of.setCommandText(command);
+
     }
 }

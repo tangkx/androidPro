@@ -7,4 +7,5 @@
     <color name="colortextback">#d5c5f7</color>
     <color name="colorbackground">#ede0f6</color>
     <color name="colormainbackground">#f7e3eb</color>
+    <color name="colorselect">#e9ff29</color>
 </resources>

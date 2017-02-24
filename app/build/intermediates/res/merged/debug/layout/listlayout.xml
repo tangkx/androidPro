@@ -18,7 +18,8 @@
         android:id="@+id/mlist"
         android:divider="@color/colortextback"
         android:dividerHeight="1dp"
-        android:background="@color/colorbackground">
+        android:background="@color/colorbackground"
+        android:listSelector="@drawable/selectors">
 
     </ListView>
 
