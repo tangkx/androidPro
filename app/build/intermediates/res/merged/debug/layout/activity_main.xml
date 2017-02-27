@@ -4,65 +4,363 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colormainbackground"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.tkx.first.MainActivity"
-    android:background="@color/colormainbackground">
+    tools:context="com.tkx.first.MainActivity">
 
     <RelativeLayout
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:id="@+id/top_bar"
-        android:background="@drawable/maintopshape"
-        >
+        android:background="@drawable/maintopshape">
+
         <TextView
             android:id="@+id/top_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="存储程序式计算机模拟平台"
-            android:textSize="18dp"
-            android:textColor="@color/colorBlack"
+            android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:layout_marginLeft="10dp"/>
+            android:text="存储程序式计算机模拟平台"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp" />
+
         <ImageView
             android:id="@+id/jump_to_edit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@mipmap/jumptoedit"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="50dp"
             android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/top_title"
-            android:layout_marginLeft="50dp"/>
+            android:src="@mipmap/jumptoedit" />
     </RelativeLayout>
 
-    <fragment
+    <LinearLayout
+        android:id="@+id/flist"
         android:layout_width="160dp"
         android:layout_height="match_parent"
-        android:name="com.tkx.first.ListFragment"
-        android:id="@+id/flist"
         android:layout_below="@id/top_bar"
         android:layout_marginLeft="10dp"
-        >
-    </fragment>
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colortextback"
+            android:shadowColor="@color/colorPrimary"
+            android:text="物理内存"
+            android:textColor="@color/colorBlack"
+            android:textSize="16dp" />
+
+        <ListView
+            android:id="@+id/mlist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorbackground"
+            android:divider="@color/colortextback"
+            android:dividerHeight="1dp"
+            android:listSelector="@drawable/selectors">
+
+        </ListView>
+
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/middle"
         android:layout_width="20dp"
         android:layout_height="match_parent"
+        android:layout_below="@id/top_bar"
         android:layout_toRightOf="@id/flist"
-        android:orientation="horizontal"
-        android:layout_below="@id/top_bar">
+        android:orientation="horizontal">
 
     </LinearLayout>
 
-    <fragment
+    <LinearLayout
+        android:id="@+id/fother"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.tkx.first.OtherFragment"
-        android:id="@+id/fother"
-        android:layout_toRightOf="@id/middle"
         android:layout_below="@id/top_bar"
-        android:layout_marginRight="10dp">
-    </fragment>
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/middle"
+        android:background="@color/colorbackground"
+        android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colortextback"
+                android:text="通用寄存器"
+                android:textColor="@color/colorBlack"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textshape"
+                    android:gravity="center"
+                    android:text="R0"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/edit_r0"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textshape"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:maxLength="2"
+                    android:text="00"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textshape"
+                    android:gravity="center"
+                    android:text="R1"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/edit_r1"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textshape"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:maxLength="2"
+                    android:text="00"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textshape"
+                    android:gravity="center"
+                    android:text="R2"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/edit_r2"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textshape"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:maxLength="2"
+                    android:text="00"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textshape"
+                    android:gravity="center"
+                    android:text="R3"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/edit_r3"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textshape"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:maxLength="2"
+                    android:text="00"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textshape"
+                    android:gravity="center"
+                    android:text="R4"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/edit_r4"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textshape"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:maxLength="2"
+                    android:text="00"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textshape"
+                    android:gravity="center"
+                    android:text="R5"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/edit_r5"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textshape"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:maxLength="2"
+                    android:text="00"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="16dp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colortextback"
+                android:text="程序计数器"
+                android:textColor="@color/colorBlack"
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/edit_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textshape"
+                android:enabled="false"
+                android:maxLength="2"
+                android:text="00"
+                android:textColor="@color/colorBlack"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colortextback"
+                android:text="指令寄存器"
+                android:textColor="@color/colorBlack"
+                android:textSize="16dp" />
+
+            <EditText
+                android:id="@+id/edit_command"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textshape"
+                android:enabled="false"
+                android:maxLength="4"
+                android:text="0000"
+                android:textColor="@color/colorBlack"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_init"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/buttonshape"
+                android:text="中央处理器初始化"
+                android:textColor="@color/colorBlack" />
+
+            <Button
+                android:id="@+id/btn_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/buttonshape"
+                android:text="中央处理器单步执行"
+                android:textColor="@color/colorBlack" />
+
+            <Button
+                android:id="@+id/btn_auto_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/buttonshape"
+                android:text="自动模拟机器代码执行"
+                android:textColor="@color/colorBlack" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
