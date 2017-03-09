@@ -23,4 +23,7 @@
             android:value="@integer/google_play_services_version" />
     </application>
 
+    <uses-permission-sdk-23 android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission-sdk-23>
+    <uses-permission-sdk-23 android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission-sdk-23>
+
 </manifest>

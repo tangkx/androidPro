@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:2:1-26:12
+ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:2:1-29:12
 	package
 		ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:3:5-28
 		INJECTED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml
@@ -63,6 +63,10 @@ MERGED from [com.google.android.gms:play-services-basement:8.4.0] F:\androidproj
 		ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:23:13-66
 	android:name
 		ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:22:13-58
+uses-permission-sdk-23
+ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:26:5-111
+	android:name
+		ADDED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml:26:29-85
 uses-sdk
 INJECTED from F:\androidprojects\MyApplication\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:appcompat-v7:25.1.1] F:\androidprojects\MyApplication\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.1.1\AndroidManifest.xml:21:5-23:78
