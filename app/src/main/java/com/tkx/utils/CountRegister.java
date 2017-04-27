@@ -1,7 +1,6 @@
 package com.tkx.utils;
 
 import com.tkx.entiys.SimulateObject;
-import com.tkx.first.SimulateData;
 
 /**
  * Created by tkx.
@@ -12,28 +11,15 @@ import com.tkx.first.SimulateData;
 public class CountRegister {
 
     public static void loadCommand(String register, String value){
-        switch (register){
 
-            case "0":
-                SimulateObject.setR0Val(value);
-                break;
-            case "1":
-                SimulateObject.setR1Val(value);
-                break;
-            case "2":
-                SimulateObject.setR2Val(value);
-                break;
-            case "3":
-                SimulateObject.setR3Val(value);
-                break;
-            case "4":
-                SimulateObject.setR4Val(value);
-                break;
-            case "5":
-                SimulateObject.setR5Val(value);
-                break;
-        }
+        SimulateObject.setRegisterVal(register, value);
     }
+
+    public static String storeCommand(String register){
+        String value = SimulateObject.getRegisterVal(register);
+        return value;
+    }
+
 
     public static int addCommand(String r1, String r2, String r3){
         String val = "";
@@ -45,13 +31,60 @@ public class CountRegister {
 
         int hax = hax1 + hax2;
 
-        if(hax > 0xff){
+        if(hax > 255){
+
             SimulateObject.setRegisterVal(r1, "ff");
             return -1;
+        }else if (hax <= 15){
+
+            SimulateObject.setRegisterVal(r1, "0"+Integer.toHexString(hax));
         }else{
             SimulateObject.setRegisterVal(r1, Integer.toHexString(hax));
-            return 0;
+        }
+        return 0;
+    }
+
+    public static void moveCommand(String r1, String r2){
+
+        String val = SimulateObject.getRegisterVal(r1);
+        SimulateObject.setRegisterVal(r2, val);
+    }
+
+    public static void shlCommand(String r, int x){
+
+        String val = SimulateObject.getRegisterVal(r);
+        int hax1 = Integer.parseInt(val,16);
+        hax1 = hax1 << x;
+        if(hax1 <= 15){
+            val = "0"+ Integer.toHexString(hax1);
+        }else if(hax1 > 255){
+            val = "00";
+        }else{
+            val = Integer.toHexString(hax1);
+        }
+
+        SimulateObject.setRegisterVal(r,val);
+    }
+
+    public static void notCommand(String r){
+
+        String val = SimulateObject.getRegisterVal(r);
+        int hexval = Integer.parseInt(val,16);
+        hexval = ~hexval;
+        String data = Integer.toHexString(hexval);
+        data = data.substring(data.length()-2,data.length());
+        SimulateObject.setRegisterVal(r,data);
+
+
+    }
+
+    public static void jmpCommand(String reg, String value){
+        String regVal = SimulateObject.getRegisterVal(reg);
+        String regVal1 = SimulateObject.getR0Val();
+        if(regVal.equals(regVal1)){
+            SimulateObject.setAccountVal(value);
         }
     }
+
 
 }

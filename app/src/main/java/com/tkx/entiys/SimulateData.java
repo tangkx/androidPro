@@ -1,4 +1,6 @@
-package com.tkx.first;
+package com.tkx.entiys;
+
+import java.util.HashMap;
 
 /**
  * Created by tkx.
@@ -10,11 +12,20 @@ public class SimulateData {
 
     private String addr;
     private String number;
+    private int flag;
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
 
     public SimulateData(){}
 
     public String getAddr() {
-        return addr;
+        return this.addr;
     }
 
     public void setAddr(String addr) {
@@ -22,7 +33,7 @@ public class SimulateData {
     }
 
     public String getNumber() {
-        return number;
+        return this.number;
     }
 
     public void setNumber(String number) {

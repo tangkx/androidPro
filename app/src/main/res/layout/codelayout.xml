@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/colormainbackground">
+    android:background="@color/colormainbackground"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,97 +16,94 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
-        android:orientation="horizontal"
-        >
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/mac_back"
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="match_parent"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorBlack"
                 android:text="机器代码十六进制编辑"
-                android:textSize="16dp"/>
+                android:textColor="@color/colorBlack"
+                android:textSize="16dp" />
 
             <EditText
                 android:id="@+id/edit_mac_code"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/editshape"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/editshape"
                 android:gravity="top"
-                />
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textSize="14dp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@id/mac_back"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="5dp"
-            android:orientation="vertical"
-            android:layout_marginBottom="5dp">
+            android:layout_toRightOf="@id/mac_back"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/open_mac_code"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
                 android:text="打开机器代码文件"
-                android:textSize="12dp"
-                />
+                android:textSize="12dp" />
 
             <Button
                 android:id="@+id/new_mac_code"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
                 android:text="新建机器代码文件"
-                android:textSize="12dp"
-                />
+                android:textSize="12dp" />
 
             <Button
                 android:id="@+id/save_mac_code"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
                 android:text="保存机器代码文件"
-                android:textSize="12dp"
-                />
+                android:textSize="12dp" />
 
             <Button
                 android:id="@+id/change_mac_code"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
                 android:text="机器代码返汇编"
-                android:textSize="12dp"
-                />
+                android:textSize="12dp" />
 
 
         </LinearLayout>
@@ -115,102 +112,112 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         android:layout_marginLeft="10dp"
-        android:orientation="horizontal"
-        >
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/asse_back"
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="match_parent"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorBlack"
                 android:text="汇编程序文本编辑"
-                android:textSize="16dp"/>
+                android:textColor="@color/colorBlack"
+                android:textSize="16dp" />
 
             <EditText
                 android:id="@+id/edit_asse_code"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/editshape"
-                android:layout_marginTop="5dp"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/editshape"
                 android:gravity="top"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:textSize="14dp"
                 />
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:layout_toRightOf="@id/asse_back"
-            android:layout_marginLeft="5dp"
-            android:orientation="vertical"
             android:layout_marginBottom="5dp"
-            >
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/asse_back"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <Button
                 android:id="@+id/open_asse_code"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape"
-                android:layout_marginTop="20dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
                 android:text="打开汇编程序文件"
-                android:textSize="12dp"
-                />
+                android:textSize="12dp" />
 
             <Button
                 android:id="@+id/new_asse_code"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
                 android:text="新建汇编程序文件"
-                android:textSize="12dp"
-                />
+                android:textSize="12dp" />
 
             <Button
                 android:id="@+id/save_asse_code"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
                 android:text="保存汇编程序文件"
-                android:textSize="12dp"
-                />
+                android:textSize="12dp" />
 
             <Button
                 android:id="@+id/change_asse_code"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@drawable/buttonshape"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/buttonshape"
                 android:text="汇编转换机器码"
-                android:textSize="12dp"
-                />
+                android:textSize="12dp" />
 
 
         </LinearLayout>
 
     </LinearLayout>
+
+
+    <android.inputmethodservice.KeyboardView
+        android:id="@+id/keyboard_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorbackground"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:keyBackground="@drawable/btn_keyboard_key"
+        android:keyTextColor="@color/black"
+        android:visibility="gone" />
 
 </LinearLayout>

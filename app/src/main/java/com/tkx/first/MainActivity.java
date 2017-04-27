@@ -1,28 +1,35 @@
 package com.tkx.first;
 
+import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.Interpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.tkx.entiys.Register;
+import com.tkx.entiys.SimulateData;
 import com.tkx.entiys.SimulateObject;
+import com.tkx.utils.CountRegister;
+import com.tkx.utils.MachineTools;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by tkx.
@@ -38,6 +45,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private List<SimulateData> simList;
     private EditText e_r0, e_r1, e_r2, e_r3, e_r4, e_r5, e_account, e_command;
     private Button btn_init, btn_action, btn_auto_action;
+    private Message message;
+    private String accountNum;
+    private boolean init_flag, action_flag;
 
 
     @Override
@@ -54,6 +64,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
      * 初始化布局
      */
     public void initView() {
+
+        myPermission();
+
         img_jump = (ImageView) findViewById(R.id.jump_to_edit);
         img_jump.setOnClickListener(this);
 
@@ -78,7 +91,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
         lAdapter = new ListAdapter(this, simList);
         mList = (ListView) findViewById(R.id.mlist);
         mList.setAdapter(lAdapter);
-        mList.setSelection(0);
+
+        lAdapter.setAnimationItem(0);
+        lAdapter.setAnimationItem(1);
+
+        init_flag = true;
+        action_flag = true;
+
+
+
 
     }
 
@@ -99,11 +120,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             case R.id.btn_init:
                 resetList();
-                e_command.setText("0000");
-                e_account.setText("00");
+                resetRegister();
+
                 break;
 
             case R.id.btn_action:
+                StartSim();
                 break;
 
             case R.id.btn_auto_action:
@@ -123,6 +145,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+        message = handler.obtainMessage();
         switch (resultCode) {
 
             case RESULT_OK:
@@ -133,6 +156,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
 
                 reflshList(arr);
+                resetRegister();
+                initCommandVal("00");
+                message = handler.obtainMessage();
+                message.what = 6;
+                handler.sendMessage(message);
 
                 break;
         }
@@ -162,37 +190,55 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     e_r2.setText(r.getR2_Value());
                     break;
                 case 3:
-                    Log.d("reslut:","CASE3");
-                    r = (Register) msg.obj;
-                    e_r3.setText(r.getR3_Value());
+                    e_account.setBackground(getResources().getDrawable(R.drawable.textselectshape));
                     break;
                 case 4:
-                    Log.d("reslut:","CASE4");
-                    r = (Register) msg.obj;
-                    e_r4.setText(r.getR4_Value());
+                    e_account.setBackground(getResources().getDrawable(R.drawable.textshape));
+                    e_command.setBackground(getResources().getDrawable(R.drawable.textselectshape));
                     break;
                 case 5:
-                    Log.d("reslut:","CASE5");
-                    r = (Register) msg.obj;
-                    e_r5.setText(r.getR5_Value());
+                    e_command.setBackground(getResources().getDrawable(R.drawable.textshape));
                     break;
                 case 6:
-                    Log.d("reslut:","CASE6");
-                    text = (String) msg.obj;
 
                     e_account.setText(SimulateObject.getAccountVal());
                     e_command.setText(SimulateObject.getCommandVal());
-                    e_account.setBackground(getResources().getDrawable(R.drawable.textshape));
+                    e_r0.setText(SimulateObject.getR0Val());
+                    e_r1.setText(SimulateObject.getR1Val());
+                    e_r2.setText(SimulateObject.getR2Val());
+                    e_r3.setText(SimulateObject.getR3Val());
+                    e_r4.setText(SimulateObject.getR4Val());
+                    e_r5.setText(SimulateObject.getR5Val());
+
+                    String account = SimulateObject.getAccountVal();
+                    int index = transformAcoountToIndex(account);
+                    lAdapter.setAnimationItem(index);
+                    lAdapter.setAnimationItem(index+1);
+
 
                     break;
                 case 7:
-                    Log.d("reslut:","CASE7");
-                    text = (String) msg.obj;
-                    e_command.setText(text);
+                    e_account.setBackground(getResources().getDrawable(R.drawable.textshape));
+//                    index = transformAcoountToIndex(accountNum);
+//                    lAdapter.animationCheck(index);
+//                    lAdapter.animationCheck(index+1);
+
                     break;
+
+                case 8:
+                    index = transformAcoountToIndex(SimulateObject.getAccountVal());
+                    lAdapter.setAnimationItem(index);
+                    lAdapter.setAnimationItem(index+1);
+                    break;
+
+                case 9:
+                    Toast.makeText(MainActivity.this, "寄存器溢出已自动截断", Toast.LENGTH_LONG).show();
+                    break;
+
             }
         }
     };
+
 
 
     /**
@@ -211,6 +257,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 String addr = tranformData(i) + tranformData(j);
                 sd.setAddr(addr);
                 sd.setNumber("00");
+                sd.setFlag(0);
                 sdList.add(sd);
             }
         }
@@ -226,34 +273,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
      */
     private String tranformData(int num) {
 
-        String res = "";
-        switch (num) {
-
-            case 10:
-                res = "a";
-                break;
-            case 11:
-                res = "b";
-                break;
-            case 12:
-                res = "c";
-                break;
-            case 13:
-                res = "d";
-                break;
-            case 14:
-                res = "e";
-                break;
-            case 15:
-                res = "f";
-                break;
-            default:
-                res = "" + num;
-                break;
-
-        }
-
-        return res;
+        return Integer.toHexString(num);
     }
 
     /**
@@ -263,8 +283,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
      */
     public void reflshList(List<String> arr) {
 
-        for (int i = 0; i < arr.size(); i++) {
+        for(int i = 0; i < arr.size(); i++){
+
             simList.get(i).setNumber(arr.get(i));
+
         }
         lAdapter.notifyDataSetChanged();
     }
@@ -273,33 +295,243 @@ public class MainActivity extends Activity implements View.OnClickListener {
      * 重置物理地址中的值
      */
     public void resetList() {
-        for (int i = 0; i < simList.size(); i++) {
-            simList.get(i).setNumber("00");
-        }
-        lAdapter.notifyDataSetChanged();
+        simList = initData();
+        lAdapter.refresh(simList);
     }
 
     /**
-     * 获取选中地址值
-     *
-     * @return 地址值
+     * 重置寄存器的值
      */
-    public String getNumforAddr(int i) {
+    public void resetRegister(){
 
-        String res = "";
+        SimulateObject.setR0Val("00");
+        SimulateObject.setR1Val("00");
+        SimulateObject.setR2Val("00");
+        SimulateObject.setR3Val("00");
+        SimulateObject.setR4Val("00");
+        SimulateObject.setR5Val("00");
+        SimulateObject.setAccountVal("00");
+        SimulateObject.setCommandVal("0000");
 
-        SimulateData data1 = (SimulateData) mList.getItemAtPosition(i);
-        SimulateData data2 = (SimulateData) mList.getItemAtPosition(i + 1);
+        e_r0.setText(SimulateObject.getR0Val());
+        e_r1.setText(SimulateObject.getR1Val());
+        e_r2.setText(SimulateObject.getR2Val());
+        e_r3.setText(SimulateObject.getR3Val());
+        e_r4.setText(SimulateObject.getR4Val());
+        e_r5.setText(SimulateObject.getR5Val());
 
-        res = data1.getNumber() + data2.getNumber();
+        e_account.setText(SimulateObject.getAccountVal());
+        e_command.setText(SimulateObject.getCommandVal());
+
+        lAdapter.setAnimationItem(0);
+        lAdapter.setAnimationItem(1);
+
+
+    }
+
+    /**
+     * 获取当前指令
+     *
+     * @return 当前指令
+     */
+    public String getCurrCommand(int index) {
+
+        String firstAddr = SimulateObject.getAccountVal();
+      //  MachineTools.showMessageDialog(this,"firstAddr:"+firstAddr);
+        SimulateData object = (SimulateData)lAdapter.getItem(index);
+        String addr = object.getAddr();
+       // MachineTools.showMessageDialog(this,"addr:"+addr);
+        String firstCommand =object.getNumber();
+       // MachineTools.showMessageDialog(this,"firstCommand:"+firstCommand);
+
+        String res = firstCommand;
+
         return res;
     }
 
-    public String getCurrentAddr(int i) {
-        String res = "";
-        SimulateData data1 = (SimulateData) mList.getItemAtPosition(i);
-        res = data1.getAddr();
-        return res;
+    public void setCurrCommand(int index, String value){
+
+        ((SimulateData)lAdapter.getItem(index)).setNumber(value);
+        lAdapter.notifyDataSetChanged();
+
+    }
+
+    public int transformAcoountToIndex(String addr){
+
+        int index = Integer.parseInt(addr,16);
+        return index;
+    }
+
+
+
+    Runnable animationRun = new Runnable() {
+        @Override
+        public void run() {
+            try{
+
+                message = handler.obtainMessage();
+                message.what = 3;
+                handler.sendMessage(message);
+                Thread.sleep(500);
+
+                message = handler.obtainMessage();
+                message.what = 7;
+                handler.sendMessage(message);
+                Thread.sleep(500);
+
+                message = handler.obtainMessage();
+                message.what = 4;
+                handler.sendMessage(message);
+                Thread.sleep(500);
+
+                message = handler.obtainMessage();
+                message.what = 5;
+                handler.sendMessage(message);
+
+                message = handler.obtainMessage();
+                message.what = 6;
+                handler.sendMessage(message);
+
+                message = handler.obtainMessage();
+                message.what = 8;
+                handler.sendMessage(message);
+
+            }catch (Exception e){
+
+            }
+
+        }
+    };
+
+    /**
+     * 单步模拟机器代码执行
+     */
+    public void StartSim(){
+
+//        simAnimation();
+//        timer.schedule(task,1000);
+        new Thread(animationRun).start();
+
+        accountNum = SimulateObject.getAccountVal();
+        int index = transformAcoountToIndex(accountNum);
+        String firstCom = getCurrCommand(index);
+        String lastCom = getCurrCommand(index+1);
+        String code = firstCom.substring(0,1);
+        String reg = "";
+        String reg1 = "";
+        String reg2 = "";
+
+        switch (code){
+
+            case "1":
+                reg = firstCom.substring(1,2);
+                index = transformAcoountToIndex(lastCom);
+                lastCom = getCurrCommand(index);
+                CountRegister.loadCommand(reg,lastCom);
+                updateAccountNum(accountNum);
+
+                break;
+            case "2":
+                reg = firstCom.substring(1,2);
+                CountRegister.loadCommand(reg,lastCom);
+                updateAccountNum(accountNum);
+
+                break;
+            case "3":
+                reg = firstCom.substring(1,2);
+                String value = CountRegister.storeCommand(reg);
+                index = transformAcoountToIndex(accountNum);
+                setCurrCommand(index, value);
+                updateAccountNum(accountNum);
+
+                break;
+            case "4":
+                reg1 = lastCom.substring(0,1);
+                reg2 = lastCom.substring(1,2);
+                CountRegister.moveCommand(reg1,reg2);
+                updateAccountNum(accountNum);
+
+                break;
+            case "5":
+                reg = firstCom.substring(1,2);
+                reg1 = lastCom.substring(0,1);
+                reg2 = lastCom.substring(1,2);
+                int flag = CountRegister.addCommand(reg, reg1, reg2);
+                if(flag == -1){
+                    Toast.makeText(this, "寄存器溢出已自动截断", Toast.LENGTH_LONG).show();
+                }
+                updateAccountNum(accountNum);
+
+                break;
+            case "6":
+                reg = firstCom.substring(1,2);
+                int shlVal = Integer.parseInt(lastCom);
+                CountRegister.shlCommand(reg, shlVal);
+                updateAccountNum(accountNum);
+
+                break;
+            case "7":
+                reg = firstCom.substring(1,2);
+                CountRegister.notCommand(reg);
+                updateAccountNum(accountNum);
+
+                break;
+            case "8":
+                reg = firstCom.substring(1,2);
+                CountRegister.jmpCommand(reg, lastCom);
+                updateAccountNum(accountNum);
+
+                break;
+            case "9":
+                MachineTools.showMessageDialog(this,"一段完整的程序运行完成");
+                updateAccountNum("00");
+
+                break;
+            default:
+                MachineTools.showMessageDialog(this,"非法指令");
+                break;
+        }
+
+
+
+
+    }
+
+    /**
+     *  更新计数器数值
+     * @param accountNum
+     */
+    public void updateAccountNum(String accountNum){
+
+        int account = Integer.parseInt(accountNum);
+        account = account + 2;
+        if(account <= 15){
+            accountNum = "0"+ Integer.toHexString(account);
+        }else{
+            accountNum = Integer.toHexString(account);
+        }
+
+        String firstCom = getCurrCommand(account);
+        String lastCom = getCurrCommand(account+1);
+        SimulateObject.setCommandVal(firstCom+lastCom);
+        SimulateObject.setAccountVal(accountNum);
+
+    }
+
+    /**
+     * 更新指令寄存器数值
+     * @param accountNum
+     */
+    public void initCommandVal(String accountNum){
+
+        if(accountNum != null){
+
+            int index = transformAcoountToIndex(accountNum);
+            String firstCom = getCurrCommand(index);
+            String lastCom = getCurrCommand(index+1);
+            SimulateObject.setCommandVal(firstCom+lastCom);
+        }
+
     }
 
     /**
@@ -309,45 +541,151 @@ public class MainActivity extends Activity implements View.OnClickListener {
     class AutoStartSim implements Runnable {
         @Override
         public void run() {
-            Message message;
-            try {
-                int i = 0;
-                Log.d("reslut:", "in startAutoSimulate");
-                Log.d("reslut:", "" + i);
-                while (true) {
-                    message = Message.obtain();
-                    Log.d("reslut:", "in while");
-                    String command = getNumforAddr(i);
-                    String count = getCurrentAddr(i);
-                    Log.d("reslut:", command);
-                    SimulateObject.setAccountVal(count);
-                    SimulateObject.setCommandVal(command);
+
+
+
+            String code = "0";
+            String reg = "";
+            String reg1 = "";
+            String reg2 = "";
+
+            do {
+
+                try{
+
+                    message = handler.obtainMessage();
+                    message.what = 3;
+                    handler.sendMessage(message);
+                    Thread.sleep(500);
+
+                    message = handler.obtainMessage();
+                    message.what = 7;
+                    handler.sendMessage(message);
+                    Thread.sleep(500);
+
+                    message = handler.obtainMessage();
+                    message.what = 4;
+                    handler.sendMessage(message);
+                    Thread.sleep(500);
+
+                    message = handler.obtainMessage();
+                    message.what = 5;
+                    handler.sendMessage(message);
+
+                    message = handler.obtainMessage();
                     message.what = 6;
-                    MainActivity.this.handler.sendMessage(message);
+                    handler.sendMessage(message);
 
-//                    Thread.sleep(500);
-//
-//                    message.what = 7;
-//                    message.obj = command;
-//                    MainActivity.this.handler.sendMessage(message);
+                    message = handler.obtainMessage();
+                    message.what = 8;
+                    handler.sendMessage(message);
 
-                    Log.d("reslut:", "onConnection");
-                    i = i + 2;
-                    Log.d("reslut:", "" + i);
-                    Thread.sleep(2000);
-                    mList.setSelection(i);
 
-                    Log.d("reslut::", "setSelection");
+                    accountNum = SimulateObject.getAccountVal();
+                    int index = transformAcoountToIndex(accountNum);
+                    String firstCom = getCurrCommand(index);
+                    String lastCom = getCurrCommand(index+1);
+                    code = firstCom.substring(0,1);
+                    reg = "";
+                    reg1 = "";
+                    reg2 = "";
 
-                    if (i >= 30) {
-                        break;
+
+                    switch (code){
+
+                        case "1":
+                            reg = firstCom.substring(1,2);
+                            index = transformAcoountToIndex(lastCom);
+                            lastCom = getCurrCommand(index);
+                            CountRegister.loadCommand(reg,lastCom);
+                            updateAccountNum(accountNum);
+
+                            break;
+                        case "2":
+                            reg = firstCom.substring(1,2);
+                            CountRegister.loadCommand(reg,lastCom);
+                            updateAccountNum(accountNum);
+
+                            break;
+                        case "3":
+                            reg = firstCom.substring(1,2);
+                            String value = CountRegister.storeCommand(reg);
+                            index = transformAcoountToIndex(accountNum);
+                            setCurrCommand(index, value);
+                            updateAccountNum(accountNum);
+
+                            break;
+                        case "4":
+                            reg1 = lastCom.substring(0,1);
+                            reg2 = lastCom.substring(1,2);
+                            CountRegister.moveCommand(reg1,reg2);
+                            updateAccountNum(accountNum);
+
+                            break;
+                        case "5":
+                            reg = firstCom.substring(1,2);
+                            reg1 = lastCom.substring(0,1);
+                            reg2 = lastCom.substring(1,2);
+                            int flag = CountRegister.addCommand(reg, reg1, reg2);
+                            if(flag == -1){
+                                message = handler.obtainMessage();
+                                message.what = 9;
+                                handler.sendMessage(message);
+                            }
+                            updateAccountNum(accountNum);
+
+                            break;
+                        case "6":
+                            reg = firstCom.substring(1,2);
+                            int shlVal = Integer.parseInt(lastCom);
+                            CountRegister.shlCommand(reg, shlVal);
+                            updateAccountNum(accountNum);
+
+                            break;
+                        case "7":
+                            reg = firstCom.substring(1,2);
+                            CountRegister.notCommand(reg);
+                            updateAccountNum(accountNum);
+
+                            break;
+                        case "8":
+                            reg = firstCom.substring(1,2);
+                            CountRegister.jmpCommand(reg, lastCom);
+                            updateAccountNum(accountNum);
+
+                            break;
                     }
+
+                    Thread.sleep(1000);
+
+
+                }catch (Exception e){
+
                 }
 
-            } catch (Exception e) {
 
-            }
 
+            }while (code.matches("^[1-8]$"));
+
+            Thread.interrupted();
+        }
+    }
+
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+    public void myPermission() {
+        int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    this,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
         }
     }
 

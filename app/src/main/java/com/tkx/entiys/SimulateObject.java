@@ -8,14 +8,14 @@ package com.tkx.entiys;
 
 public class SimulateObject {
 
-    public static String R0_VAL;
-    public static String R1_VAL;
-    public static String R2_VAL;
-    public static String R3_VAL;
-    public static String R4_VAL;
-    public static String R5_VAL;
-    public static String ACCOUNT_VAL;
-    public static String COMMAND_VAL;
+    public static String R0_VAL = "00";
+    public static String R1_VAL = "00";;
+    public static String R2_VAL = "00";;
+    public static String R3_VAL = "00";;
+    public static String R4_VAL = "00";;
+    public static String R5_VAL = "00";;
+    public static String ACCOUNT_VAL = "00";;
+    public static String COMMAND_VAL = "0000";;
 
     public static String getR0Val() {
         return R0_VAL;
