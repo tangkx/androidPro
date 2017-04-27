@@ -6,11 +6,30 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/top_bar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.15"
-        android:background="@drawable/maintopshape">
+        android:layout_height="60dp"
+        android:background="@drawable/edittopshape">
 
+        <TextView
+            android:id="@+id/top_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="存储程序式计算机模拟平台"
+            android:textColor="@color/colorBlack"
+            android:textSize="18dp" />
+
+        <ImageView
+            android:id="@+id/jump_to_load"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/top_title"
+            android:src="@drawable/jumptoedit" />
     </RelativeLayout>
 
     <LinearLayout
@@ -43,9 +62,8 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/editshape"
                 android:gravity="top"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:textSize="14dp"/>
+                android:textSize="14dp"
+                android:scrollbars="vertical"/>
         </LinearLayout>
 
         <LinearLayout
@@ -138,9 +156,8 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/editshape"
                 android:gravity="top"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:textSize="14dp"
+                android:scrollbars="vertical"
                 />
         </LinearLayout>
 

@@ -75,11 +75,38 @@
     </item>
     <item
         is-multidex="true"
+        jar="G:\Android_SDK\extras\android\m2repository\com\android\support\support-annotations\25.1.1\support-annotations-25.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.1.1_027c0106be747b4190d30179b1d2a7536dad8e19\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2d03c5e2478294de2e9d7ce0e64be5201af18f09">
+        <dex dex="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_842688f7a1849543c50032171625439fdc9871d6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.1.1_95b2abe87a02bb7d093fe6208665cc9a77faa774\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="8e547626bb03639c3b87099e595ac4ad41f895c0">
+        sha1="c8f9f913f9ba27db7932adc8ea17642e00e8ecaf">
         <dex dex="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_abe03b264750f2f9ea2bcaaad112ed7e0526e228\classes.dex" />
     </item>
     <item
@@ -99,33 +126,6 @@
         revision="25.0.2"
         sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
         <dex dex="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-25.1.1_665dc38a62dfb62dc45e013380519fa0b6a24018\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="G:\Android_SDK\extras\android\m2repository\com\android\support\support-annotations\25.1.1\support-annotations-25.1.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
-        <dex dex="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.1.1_027c0106be747b4190d30179b1d2a7536dad8e19\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="63d51da740bf3dedac0c0600d560ccda7ca5472c">
-        <dex dex="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_842688f7a1849543c50032171625439fdc9871d6\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.1.1\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
-        <dex dex="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.1.1_95b2abe87a02bb7d093fe6208665cc9a77faa774\classes.dex" />
     </item>
     <item
         is-multidex="true"

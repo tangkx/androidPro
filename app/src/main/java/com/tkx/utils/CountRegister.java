@@ -33,7 +33,7 @@ public class CountRegister {
 
         if(hax > 255){
 
-            SimulateObject.setRegisterVal(r1, "ff");
+            SimulateObject.setRegisterVal(r1, "0"+Integer.toHexString(hax-256));
             return -1;
         }else if (hax <= 15){
 
@@ -78,12 +78,15 @@ public class CountRegister {
 
     }
 
-    public static void jmpCommand(String reg, String value){
+    public static int jmpCommand(String reg, String value){
         String regVal = SimulateObject.getRegisterVal(reg);
         String regVal1 = SimulateObject.getR0Val();
         if(regVal.equals(regVal1)){
             SimulateObject.setAccountVal(value);
+            return 1;
         }
+
+        return 0;
     }
 
 

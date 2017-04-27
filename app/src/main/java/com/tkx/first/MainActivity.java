@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.crypto.Mac;
+
 /**
  * Created by tkx.
  * e-mail is 993296096@qq.com
@@ -121,6 +123,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.btn_init:
                 resetList();
                 resetRegister();
+                mList.setSelection(0);
 
                 break;
 
@@ -151,9 +154,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case RESULT_OK:
                 Bundle bundle = data.getExtras();
                 List<String> arr = (List<String>) bundle.get("mac_arr");
-                for (int i = 0; i < arr.size(); i++) {
-                    Log.d("reslut:", arr.get(i));
-                }
 
                 reflshList(arr);
                 resetRegister();
@@ -229,10 +229,27 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     index = transformAcoountToIndex(SimulateObject.getAccountVal());
                     lAdapter.setAnimationItem(index);
                     lAdapter.setAnimationItem(index+1);
+                    mList.setSelection(index/2);
                     break;
 
                 case 9:
                     Toast.makeText(MainActivity.this, "寄存器溢出已自动截断", Toast.LENGTH_LONG).show();
+                    break;
+
+                case 10:
+                    MachineTools.showMessageDialog(MainActivity.this,"一段完整的程序执行完成");
+                    break;
+                case 11:
+                    MachineTools.showMessageDialog(MainActivity.this,"非法指令");
+                    break;
+                case 12:
+                    //btn_init.setClickable(false);
+                    btn_init.setEnabled(false);
+                    btn_action.setEnabled(false);
+                    break;
+                case 13:
+                    btn_init.setEnabled(true);
+                    btn_action.setEnabled(true);
                     break;
 
             }
@@ -369,16 +386,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
         public void run() {
             try{
 
+                //计数器动画
                 message = handler.obtainMessage();
                 message.what = 3;
                 handler.sendMessage(message);
                 Thread.sleep(500);
 
-                message = handler.obtainMessage();
-                message.what = 7;
-                handler.sendMessage(message);
-                Thread.sleep(500);
+//                message = handler.obtainMessage();
+//                message.what = 7;
+//                handler.sendMessage(message);
+//                Thread.sleep(500);
 
+                //指令寄存器动画
                 message = handler.obtainMessage();
                 message.what = 4;
                 handler.sendMessage(message);
@@ -388,6 +407,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 message.what = 5;
                 handler.sendMessage(message);
 
+                //刷新寄存其中的值
                 message = handler.obtainMessage();
                 message.what = 6;
                 handler.sendMessage(message);
@@ -402,6 +422,17 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         }
     };
+
+//    Runnable reflshRegisterAnimation = new Runnable() {
+//        @Override
+//        public void run() {
+//
+//            //刷新寄存其中的值
+//            message = handler.obtainMessage();
+//            message.what = 6;
+//            handler.sendMessage(message);
+//        }
+//    };
 
     /**
      * 单步模拟机器代码执行
@@ -478,20 +509,26 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case "8":
                 reg = firstCom.substring(1,2);
-                CountRegister.jmpCommand(reg, lastCom);
-                updateAccountNum(accountNum);
+                int i = CountRegister.jmpCommand(reg, lastCom);
+                if(i == 0){
+
+                    updateAccountNum(accountNum);
+
+                }else{
+                    Log.d("result:","跳转");
+                    initCommandVal(SimulateObject.getAccountVal());
+                }
 
                 break;
             case "9":
                 MachineTools.showMessageDialog(this,"一段完整的程序运行完成");
-                updateAccountNum("00");
+                updateAccountNum("-2");
 
                 break;
             default:
                 MachineTools.showMessageDialog(this,"非法指令");
                 break;
         }
-
 
 
 
@@ -503,7 +540,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
      */
     public void updateAccountNum(String accountNum){
 
-        int account = Integer.parseInt(accountNum);
+        int account = Integer.parseInt(accountNum,16);
         account = account + 2;
         if(account <= 15){
             accountNum = "0"+ Integer.toHexString(account);
@@ -548,6 +585,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
             String reg = "";
             String reg1 = "";
             String reg2 = "";
+
+            //设置初始化和单步执行不可用
+            message = handler.obtainMessage();
+            message.what = 12;
+            handler.sendMessage(message);
 
             do {
 
@@ -650,8 +692,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             break;
                         case "8":
                             reg = firstCom.substring(1,2);
-                            CountRegister.jmpCommand(reg, lastCom);
-                            updateAccountNum(accountNum);
+                            int i = CountRegister.jmpCommand(reg, lastCom);
+                            if(i == 0){
+
+                                updateAccountNum(accountNum);
+
+                            }else{
+                                Log.d("result:","跳转");
+                                initCommandVal(SimulateObject.getAccountVal());
+                            }
 
                             break;
                     }
@@ -666,6 +715,21 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
             }while (code.matches("^[1-8]$"));
+
+            if(code.equals("9")){
+                message = handler.obtainMessage();
+                message.what = 10;
+                handler.sendMessage(message);
+            }else{
+                message = handler.obtainMessage();
+                message.what = 11;
+                handler.sendMessage(message);
+            }
+
+            //设置初始化和单步执行可用
+            message = handler.obtainMessage();
+            message.what = 13;
+            handler.sendMessage(message);
 
             Thread.interrupted();
         }

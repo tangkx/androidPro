@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.tkx.keyboard.KeyboardUtil;
 import com.tkx.utils.FileUtils;
@@ -40,6 +42,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
     public EditText e_mac, e_asse;
     public Button btn_open_mac, btn_new_mac, btn_save_mac, btn_chg_mac,
             btn_open_asse, btn_new_asse, btn_save_asse, btn_chg_asse;
+    public ImageView img_jum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +55,14 @@ public class EditActivity extends Activity implements View.OnClickListener {
 
     public void initView() {
 
-        myPermission();
+        //myPermission();
 
         e_mac = (EditText) findViewById(R.id.edit_mac_code);
         e_asse = (EditText) findViewById(R.id.edit_asse_code);
-        e_mac.requestFocus();
-        e_asse.requestFocus();
 
-//        e_mac.setInputType(InputType.TYPE_NULL);
-//        e_asse.setInputType(InputType.TYPE_NULL);
+        e_mac.setShowSoftInputOnFocus(false);
+        e_asse.setShowSoftInputOnFocus(false);
+
 
         e_mac.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -89,6 +91,8 @@ public class EditActivity extends Activity implements View.OnClickListener {
         btn_save_asse = (Button) findViewById(R.id.save_asse_code);
         btn_chg_asse = (Button) findViewById(R.id.change_asse_code);
 
+        img_jum = (ImageView) findViewById(R.id.jump_to_load);
+
         btn_open_mac.setOnClickListener(this);
         btn_new_mac.setOnClickListener(this);
         btn_save_mac.setOnClickListener(this);
@@ -97,6 +101,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
         btn_new_asse.setOnClickListener(this);
         btn_save_asse.setOnClickListener(this);
         btn_chg_asse.setOnClickListener(this);
+        img_jum.setOnClickListener(this);
 
 
         new Thread(new Runnable() {
@@ -113,17 +118,20 @@ public class EditActivity extends Activity implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.open_mac_code:
-                List<String> arr = new ArrayList<>();
-                arr.add("20");
-                arr.add("ff");
-                arr.add("21");
-                arr.add("1a");
-                arr.add("50");
-                arr.add("01");
-                Intent intent = new Intent();
-                intent.putExtra("mac_arr", (Serializable) arr);
-                this.setResult(RESULT_OK, intent);
-                this.finish();
+                Intent macfileintent = new Intent(Intent.ACTION_GET_CONTENT);
+                macfileintent.setType("text/plain");
+                startActivityForResult(macfileintent, 2);
+//                List<String> arr = new ArrayList<>();
+//                arr.add("20");
+//                arr.add("ff");
+//                arr.add("21");
+//                arr.add("1a");
+//                arr.add("50");
+//                arr.add("01");
+//                Intent intent = new Intent();
+//                intent.putExtra("mac_arr", (Serializable) arr);
+//                this.setResult(RESULT_OK, intent);
+//                this.finish();
                 break;
             case R.id.new_mac_code:
                 MachineTools.showMessageDialog(this,"机器码测试测试");
@@ -169,6 +177,17 @@ public class EditActivity extends Activity implements View.OnClickListener {
                     setMacData(MacList);
                 }
                 break;
+            case R.id.jump_to_load:
+                macArr = getMacCommand();
+                if(macArr != null){
+                    List<String> macLoad = loadResult(macArr);
+                    Intent intent = new Intent();
+                    intent.putExtra("mac_arr", (Serializable) macLoad);
+                    this.setResult(RESULT_OK, intent);
+                    this.finish();
+                }
+
+                break;
         }
 
     }
@@ -200,27 +219,160 @@ public class EditActivity extends Activity implements View.OnClickListener {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         myPermission();
-        Log.d("aaa", "oko");
+        List<String> reslut = new ArrayList<>();
         if (resultCode == RESULT_OK) {
-            Log.d("aaa", "RESULT_OK");
-            try {
 
-                BufferedReader breader = FileUtils.getFileBufferedReader(data.getData());
+            if(requestCode == 1){
+                try {
 
-                String str = "";
-                while ((str = breader.readLine()) != null) {
-                    Log.d("aaa", str);
+                    BufferedReader breader = FileUtils.getFileBufferedReader(data.getData());
+
+                    String str = "";
+                    while ((str = breader.readLine()) != null) {
+
+                        reslut.add(str);
+                    }
+
+                    setAseData(reslut);
+
+                } catch (Exception e) {
+                    Log.d("result:", e.toString());
                 }
+            }else if(requestCode == 2){
+                try {
 
+                    BufferedReader breader = FileUtils.getFileBufferedReader(data.getData());
 
-            } catch (Exception e) {
-                Log.d("aaa", e.toString());
+                    String str = "";
+                    while ((str = breader.readLine()) != null) {
+
+                        reslut.add(str);
+                    }
+
+                    setMacData(reslut);
+
+                } catch (Exception e) {
+                    Log.d("result:", e.toString());
+                }
             }
 
         }
     }
 
+
+    /**
+     * 检验机器码是否合格，返回要加载的数据
+     * @param macCom
+     * @return
+     */
+    public List<String> loadResult(String[] macCom){
+
+        List<String> res = new ArrayList<>();
+        for(int i = 0; i < macCom.length; i++){
+
+            if(macCom[i].length() != 4){
+                MachineTools.showMessageDialog(this,"错误行"+i+"机器指令为4位");
+                return null;
+            }
+
+            String code = macCom[i].substring(0,1);
+
+            switch (code){
+
+                case "1":
+                    if(macCom[i].matches("^(1[0-5][0-9a-fA-F]{2})$")){
+                        res.add(macCom[i].substring(0,2));
+                        res.add(macCom[i].substring(2,4));
+                    }else {
+                        MachineTools.showMessageDialog(this,"错误行"+i+"寄存器范围0~5,立即数范围00~ff");
+                        return null;
+                    }
+                    break;
+                case "2":
+                    if(macCom[i].matches("^(2[0-5][0-9a-fA-F]{2})$")){
+                        res.add(macCom[i].substring(0,2));
+                        res.add(macCom[i].substring(2,4));
+                    }else {
+                        MachineTools.showMessageDialog(this,"错误行"+i+"寄存器范围0~5,立即数范围00~ff");
+                        return null;
+                    }
+                    break;
+                case "3":
+                    if(macCom[i].matches("^(3[0-5][0-9a-fA-F]{2})$")){
+                        res.add(macCom[i].substring(0,2));
+                        res.add(macCom[i].substring(2,4));
+                    }else {
+                        MachineTools.showMessageDialog(this,"错误行"+i+"寄存器范围0~5,立即数范围00~ff");
+                        return null;
+                    }
+                    break;
+                case "4":
+                    if(macCom[i].matches("^(40[0-5]{2})$")){
+                        res.add(macCom[i].substring(0,2));
+                        res.add(macCom[i].substring(2,4));
+                    }else {
+                        MachineTools.showMessageDialog(this,"错误行"+i+"寄存器范围0~5");
+                        return null;
+                    }
+                    break;
+                case "5":
+                    if(macCom[i].matches("^(5[0-5]{3})$")){
+                        res.add(macCom[i].substring(0,2));
+                        res.add(macCom[i].substring(2,4));
+                    }else {
+                        MachineTools.showMessageDialog(this,"错误行"+i+"寄存器范围0~5");
+                        return null;
+                    }
+                    break;
+                case "6":
+                    if(macCom[i].matches("^(6[0-5]0[0-9a-fA-F])$")){
+                        res.add(macCom[i].substring(0,2));
+                        res.add(macCom[i].substring(2,4));
+                    }else {
+                        MachineTools.showMessageDialog(this,"错误行"+i+"寄存器范围0~5,立即数范围0~f");
+                        return null;
+                    }
+                    break;
+                case "7":
+                    if(macCom[i].matches("^(7[0-5]00)$")){
+                        res.add(macCom[i].substring(0,2));
+                        res.add(macCom[i].substring(2,4));
+                    }else {
+                        MachineTools.showMessageDialog(this,"错误行"+i+"寄存器范围0~5");
+                        return null;
+                    }
+                    break;
+                case "8":
+                    if(macCom[i].matches("^(8[0-5][0-9a-fA-F]{2})$")){
+                        res.add(macCom[i].substring(0,2));
+                        res.add(macCom[i].substring(2,4));
+                    }else {
+                        MachineTools.showMessageDialog(this,"错误行"+i+"寄存器范围0~5,立即数范围00~ff");
+                        return null;
+                    }
+                    break;
+                case "9":
+                    if(macCom[i].matches("^(9000)$")){
+                        res.add(macCom[i].substring(0,2));
+                        res.add(macCom[i].substring(2,4));
+                    }else {
+                        MachineTools.showMessageDialog(this,"错误行"+i+"停机指令错误");
+                        return null;
+                    }
+                    break;
+                default:
+                    MachineTools.showMessageDialog(this,"错误行"+i+"未知指令错误");
+                    if(1 == 1){
+                        return null;
+                    }
+                    break;
+            }
+        }
+
+        return res;
+    }
     /**
      * 按回车符号分割字符串
      * @param sliptStr
@@ -266,6 +418,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
         e_asse.setText("");
         if(list != null){
             for (int i = 0; i < list.size(); i++){
+                Log.d("result:",list.get(i));
                 e_asse.append(list.get(i)+"\n");
             }
         }

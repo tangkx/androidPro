@@ -80,12 +80,12 @@
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.4.0\\res\\drawable\\common_plus_signin_btn_icon_dark.xml"
     },
     {
-        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\jumptoedit.png",
-        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\jumptoedit.png"
-    },
-    {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\selectors.xml",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\selectors.xml"
+    },
+    {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\jumptoedit.png",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\jumptoedit.png"
     },
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
@@ -194,6 +194,10 @@
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_light.xml",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.4.0\\res\\drawable\\common_google_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\edittopshape.xml",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\edittopshape.xml"
     },
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
