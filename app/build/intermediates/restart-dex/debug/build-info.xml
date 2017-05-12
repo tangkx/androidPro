@@ -5,33 +5,54 @@
     density="xxhdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="240597111140790"
+    timestamp="1280473841639252"
     token="-2182277773373071013"
-    verifier="FULL_BUILD_REQUESTED" >
+    verifier="COMPATIBLE" >
 
     <task
         name="javac"
-        duration="143" />
+        duration="124" />
     <task
         name="instant-run-dex"
-        duration="0" />
+        duration="48" />
     <task
         name="instant-run-transform"
-        duration="30" />
+        duration="29" />
     <task
         name="verifier"
-        duration="3" />
+        duration="4" />
 
     <artifact
-        location="G:\android_studio_projects\vcomputer\androidPro\app\build\outputs\apk\app-debug.apk"
-        type="MAIN" />
+        location="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\reload-dex\debug\classes.dex"
+        type="RELOAD_DEX" />
 
     <build
-        timestamp="240597111140790"
-        verifier="FULL_BUILD_REQUESTED" >
+        timestamp="1280073220080248"
+        verifier="MANIFEST_FILE_CHANGE" >
         <artifact
             location="G:\android_studio_projects\vcomputer\androidPro\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
+    </build>
+    <build
+        timestamp="1280246389729875"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\builds\debug\1280246389729875\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="1280350860650346"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\builds\debug\1280350860650346\classes.dex"
+            type="RELOAD_DEX" />
+    </build>
+    <build
+        timestamp="1280473841639252"
+        verifier="COMPATIBLE" >
+        <artifact
+            location="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\reload-dex\debug\classes.dex"
+            type="RELOAD_DEX" />
     </build>
 
 </instant-run>

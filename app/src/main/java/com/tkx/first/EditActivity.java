@@ -5,11 +5,16 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -18,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.tkx.keyboard.DBHelper;
 import com.tkx.keyboard.KeyboardUtil;
 import com.tkx.utils.FileUtils;
 import com.tkx.utils.Htools;
@@ -43,6 +49,10 @@ public class EditActivity extends Activity implements View.OnClickListener {
     public Button btn_open_mac, btn_new_mac, btn_save_mac, btn_chg_mac,
             btn_open_asse, btn_new_asse, btn_save_asse, btn_chg_asse;
     public ImageView img_jum;
+    private DBHelper db;
+    private SharedPreferences share;
+    private SharedPreferences.Editor editor;
+    boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,29 +66,34 @@ public class EditActivity extends Activity implements View.OnClickListener {
     public void initView() {
 
         //myPermission();
+        share = getSharedPreferences("Program",MODE_PRIVATE);
+        db = new DBHelper(EditActivity.this);
 
         e_mac = (EditText) findViewById(R.id.edit_mac_code);
         e_asse = (EditText) findViewById(R.id.edit_asse_code);
+//
+//        e_mac.setShowSoftInputOnFocus(false);
+//        e_asse.setShowSoftInputOnFocus(false);
+//
+//
+//        e_mac.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                new KeyboardUtil(EditActivity.this,EditActivity.this,e_mac).showKeyboard();
+//                return false;
+//            }
+//        });
+//
+//        e_asse.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                new KeyboardUtil(EditActivity.this,EditActivity.this,e_asse).showKeyboard();
+//                return false;
+//            }
+//        });
 
-        e_mac.setShowSoftInputOnFocus(false);
-        e_asse.setShowSoftInputOnFocus(false);
-
-
-        e_mac.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                new KeyboardUtil(EditActivity.this,EditActivity.this,e_mac).showKeyboard();
-                return false;
-            }
-        });
-
-        e_asse.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                new KeyboardUtil(EditActivity.this,EditActivity.this,e_asse).showKeyboard();
-                return false;
-            }
-        });
+        e_mac.setFilters(new InputFilter[]{macInputFilter});
+        e_asse.setFilters(new InputFilter[]{aseInputFilter});
 
 
         btn_open_mac = (Button) findViewById(R.id.open_mac_code);
@@ -103,13 +118,24 @@ public class EditActivity extends Activity implements View.OnClickListener {
         btn_chg_asse.setOnClickListener(this);
         img_jum.setOnClickListener(this);
 
+        int flag = db.query();
+        if(flag == 0){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    FileUtils.initPackageFiles();
+                }
+            }).start();
+            db.update(1);
+            Log.d("result:","ok");
+        }
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                FileUtils.initPackageFiles();
-            }
-        }).start();
+        String macPro = getIntent().getStringExtra("macPro");
+        String asePro = getIntent().getStringExtra("asePro");
+        Log.d("Pro:",macPro);
+        Log.d("Pro:",asePro);
+        e_mac.setText(macPro);
+        e_asse.setText(asePro);
 
     }
 
@@ -121,20 +147,11 @@ public class EditActivity extends Activity implements View.OnClickListener {
                 Intent macfileintent = new Intent(Intent.ACTION_GET_CONTENT);
                 macfileintent.setType("text/plain");
                 startActivityForResult(macfileintent, 2);
-//                List<String> arr = new ArrayList<>();
-//                arr.add("20");
-//                arr.add("ff");
-//                arr.add("21");
-//                arr.add("1a");
-//                arr.add("50");
-//                arr.add("01");
-//                Intent intent = new Intent();
-//                intent.putExtra("mac_arr", (Serializable) arr);
-//                this.setResult(RESULT_OK, intent);
-//                this.finish();
                 break;
             case R.id.new_mac_code:
-                MachineTools.showMessageDialog(this,"机器码测试测试");
+                Intent codeIntent = new Intent();
+                codeIntent.setClass(EditActivity.this,CodeActivity.class);
+                startActivity(codeIntent);
                 break;
             case R.id.save_mac_code:
                 String[] macSaveArr = getMacCommand();
@@ -178,6 +195,17 @@ public class EditActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.jump_to_load:
+
+                editor = share.edit();
+                String macPro = e_mac.getText().toString().trim();
+                String asePro = e_asse.getText().toString().trim();
+                Log.d("Program",macPro);
+                Log.d("Program",asePro);
+
+                editor.putString("macPro",macPro);
+                editor.putString("asePro",asePro);
+                editor.commit();
+
                 macArr = getMacCommand();
                 if(macArr != null){
                     List<String> macLoad = loadResult(macArr);
@@ -373,6 +401,7 @@ public class EditActivity extends Activity implements View.OnClickListener {
 
         return res;
     }
+
     /**
      * 按回车符号分割字符串
      * @param sliptStr
@@ -452,4 +481,66 @@ public class EditActivity extends Activity implements View.OnClickListener {
             );
         }
     }
+
+    //机器码文本字符过滤
+    InputFilter macInputFilter = new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+
+            String regex = "^[0-9a-fA-F\\r\\n]+$";
+
+            if(!(source.toString().matches(regex))){
+                return "";
+            }
+            return null;
+        }
+    };
+
+    //汇编程序文本字符过滤
+    InputFilter aseInputFilter = new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+
+            String regex = "^[0-9a-zA-Z\\r\\n\\[,\\]:\\d\\s]+$";
+
+            if(!(source.toString().matches(regex))){
+                return "";
+            }
+            return null;
+        }
+    };
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+
+        if(event.getAction() == KeyEvent.ACTION_DOWN){
+            if(keyCode == KeyEvent.KEYCODE_BACK){
+
+                if((e_mac.getText().toString().equals("")) &&(e_asse.getText().toString().equals(""))){
+                    finish();
+                }else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setTitle("是否要保存文件");
+                    builder.setPositiveButton("是", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            flag = true;
+                        }
+                    }).setNegativeButton("否", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    });
+                    builder.show();
+                }
+
+                return flag;
+
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }

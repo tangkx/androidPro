@@ -5,6 +5,8 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
+
+//机器码转换成汇编程序
 public class Mtools {
 
 	String REGEX_REGISTER = "^[0-5]$";

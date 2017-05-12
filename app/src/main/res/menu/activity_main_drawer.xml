@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="机器代码操作">
+        <menu>
+            <item
+                android:id="@+id/mac_open"
+                android:icon="@mipmap/open_file"
+                android:title="打开文件"/>
+            <item
+                android:id="@+id/mac_save"
+                android:icon="@mipmap/save_file"
+                android:title="保存文件"/>
+            <item
+                android:id="@+id/mac_to_ase"
+                android:icon="@mipmap/work_file"
+                android:title="代码反汇编"/>
+
+        </menu>
+
+    </item>
+
+    <item android:title="汇编代码操作">
+        <menu>
+            <item
+                android:id="@+id/ase_open"
+                android:icon="@mipmap/open_file"
+                android:title="打开文件"/>
+            <item
+                android:id="@+id/ase_save"
+                android:icon="@mipmap/save_file"
+                android:title="保存文件"/>
+            <item
+                android:id="@+id/ase_to_mac"
+                android:icon="@mipmap/work_file"
+                android:title="代码反汇编"/>
+
+        </menu>
+    </item>
+
+    <item android:title="其它操作">
+        <menu>
+            <item
+                android:id="@+id/load_code"
+                android:icon="@mipmap/load"
+                android:title="装载程序"/>
+            <item
+                android:id="@+id/help"
+                android:icon="@mipmap/help"
+                android:title="帮助文档"/>
+        </menu>
+    </item>
+
+</menu>

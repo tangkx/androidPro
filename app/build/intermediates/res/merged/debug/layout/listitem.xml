@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:background="@drawable/selectors">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:background="@drawable/selectors">
 
         <TextView
             android:id="@+id/addrtext"
@@ -32,9 +30,8 @@
             android:maxLength="2"
             android:textColor="@color/colorBlack"
             android:background="@drawable/textshape"
-            android:gravity="center"/>
-
-    </LinearLayout>
+            android:gravity="center"
+            />
 
 
 </LinearLayout>

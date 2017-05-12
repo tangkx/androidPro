@@ -3,17 +3,27 @@ package com.tkx.first;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.ActivityCompat;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Interpolator;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,15 +33,12 @@ import android.widget.Toast;
 import com.tkx.entiys.Register;
 import com.tkx.entiys.SimulateData;
 import com.tkx.entiys.SimulateObject;
+import com.tkx.keyboard.DBHelper;
 import com.tkx.utils.CountRegister;
 import com.tkx.utils.MachineTools;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import javax.crypto.Mac;
 
 /**
  * Created by tkx.
@@ -50,6 +57,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Message message;
     private String accountNum;
     private boolean init_flag, action_flag;
+    private DBHelper db;
+    private SharedPreferences sharePre;
+    private  SharedPreferences.Editor editor;
+    private MyBroadcast broadcast;
 
 
     @Override
@@ -67,7 +78,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
      */
     public void initView() {
 
+        broadcast = new MyBroadcast();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("com.broadcast");
+        registerReceiver(broadcast,filter);
+
         myPermission();
+        db = new DBHelper(MainActivity.this);
+
+        sharePre = getSharedPreferences("Program",MODE_PRIVATE);
+        editor = sharePre.edit();
+        editor.putString("macPro","");
+        editor.putString("asePro","");
+        editor.commit();
 
         img_jump = (ImageView) findViewById(R.id.jump_to_edit);
         img_jump.setOnClickListener(this);
@@ -92,6 +115,29 @@ public class MainActivity extends Activity implements View.OnClickListener {
         simList = initData();
         lAdapter = new ListAdapter(this, simList);
         mList = (ListView) findViewById(R.id.mlist);
+
+//        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+////                parent.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
+//                Log.e("result:","LongClick");
+//                lAdapter.setAnimationItem(position);
+//                lAdapter.setAnimationItem(position+1);
+//            }
+//        });
+
+//        mList.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//
+//                int width = v.getWidth();
+//                int heigh = v.getHeight();
+//
+//                return false;
+//            }
+//        });
+
         mList.setAdapter(lAdapter);
 
         lAdapter.setAnimationItem(0);
@@ -99,6 +145,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         init_flag = true;
         action_flag = true;
+
 
 
 
@@ -116,7 +163,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.jump_to_edit:
                 Intent in_jump = new Intent();
-                in_jump.setClass(MainActivity.this, EditActivity.class);
+                String macText = sharePre.getString("macPro","");
+                String aseText = sharePre.getString("asePro","");
+
+                in_jump.putExtra("macPro",macText);
+                in_jump.putExtra("asePro",aseText);
+                in_jump.setClass(MainActivity.this, CodeActivity.class);
                 startActivityForResult(in_jump, 1);
                 break;
 
@@ -158,9 +210,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 reflshList(arr);
                 resetRegister();
                 initCommandVal("00");
-                message = handler.obtainMessage();
-                message.what = 6;
-                handler.sendMessage(message);
+                e_command.setText(SimulateObject.getCommandVal());
+//                message = handler.obtainMessage();
+//                message.what = 6;
+//                handler.sendMessage(message);
 
                 break;
         }
@@ -246,10 +299,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     //btn_init.setClickable(false);
                     btn_init.setEnabled(false);
                     btn_action.setEnabled(false);
+                    btn_auto_action.setEnabled(false);
                     break;
                 case 13:
                     btn_init.setEnabled(true);
                     btn_action.setEnabled(true);
+                    btn_auto_action.setEnabled(true);
                     break;
 
             }
@@ -386,6 +441,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         public void run() {
             try{
 
+                message = handler.obtainMessage();
+                message.what = 12;
+                handler.sendMessage(message);
+
                 //计数器动画
                 message = handler.obtainMessage();
                 message.what = 3;
@@ -416,6 +475,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 message.what = 8;
                 handler.sendMessage(message);
 
+                message = handler.obtainMessage();
+                message.what = 13;
+                handler.sendMessage(message);
+
             }catch (Exception e){
 
             }
@@ -439,8 +502,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
      */
     public void StartSim(){
 
-//        simAnimation();
-//        timer.schedule(task,1000);
         new Thread(animationRun).start();
 
         accountNum = SimulateObject.getAccountVal();
@@ -521,15 +582,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 break;
             case "9":
-                MachineTools.showMessageDialog(this,"一段完整的程序运行完成");
+//                MachineTools.showMessageDialog(this,"一段完整的程序运行完成");
+                message = handler.obtainMessage();
+                message.what = 10;
+                handler.sendMessage(message);
                 updateAccountNum("-2");
 
                 break;
             default:
-                MachineTools.showMessageDialog(this,"非法指令");
+//                MachineTools.showMessageDialog(this,"非法指令");
+                message = handler.obtainMessage();
+                message.what = 11;
+                handler.sendMessage(message);
                 break;
         }
-
 
 
     }
@@ -600,10 +666,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     handler.sendMessage(message);
                     Thread.sleep(500);
 
-                    message = handler.obtainMessage();
-                    message.what = 7;
-                    handler.sendMessage(message);
-                    Thread.sleep(500);
+//                    message = handler.obtainMessage();
+//                    message.what = 7;
+//                    handler.sendMessage(message);
+//                    Thread.sleep(500);
 
                     message = handler.obtainMessage();
                     message.what = 4;
@@ -753,4 +819,35 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    public class MyBroadcast extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            int position = intent.getIntExtra("position",0);
+            if(position <= 15){
+                accountNum = "0"+ Integer.toHexString(position);
+            }else{
+                accountNum = Integer.toHexString(position);
+            }
+
+            String firstCom = getCurrCommand(position);
+            String lastCom = getCurrCommand(position+1);
+            SimulateObject.setCommandVal(firstCom+lastCom);
+            SimulateObject.setAccountVal(accountNum);
+
+            e_account.setText(SimulateObject.getAccountVal());
+            e_command.setText(SimulateObject.getCommandVal());
+
+            lAdapter.setAnimationItem(position);
+            lAdapter.setAnimationItem(position+1);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        unregisterReceiver(broadcast);
+        super.onDestroy();
+    }
 }

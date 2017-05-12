@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//汇编转换成机器码
 public class Htools {
 
     String REGEX_VALID_DATA = "^([0-9a-fA-F]{1,2})$";

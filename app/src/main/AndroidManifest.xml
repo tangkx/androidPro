@@ -20,7 +20,14 @@
         <activity
             android:name=".EditActivity"
             android:windowSoftInputMode="adjustPan">
-            ></activity>
+            >
+        </activity>
+
+        <activity
+            android:name=".CodeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"></activity>
+
 
         <meta-data
             android:name="com.google.android.gms.version"

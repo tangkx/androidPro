@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:showIn="@layout/activity_main"
+                android:background="@color/colormainbackground">
+
+    <RelativeLayout
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/edittopshape"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/open_nav_view"
+            android:src="@mipmap/menu"
+            android:paddingLeft="10dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="存储程序式计算机模拟平台"
+            android:textColor="@color/colorBlack"
+            android:textSize="16dp"
+            android:paddingLeft="5dp"
+            android:layout_toRightOf="@id/open_nav_view"/>
+
+        <ImageView
+            android:id="@+id/back_front"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/back"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/topbar"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        >
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            >
+            <TextView
+                android:id="@+id/mac_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="机器代码编辑"
+                android:textSize="16dp"
+                android:background="@color/colortextback"
+                android:textColor="@color/colorBlack"/>
+
+            <EditText
+                android:id="@+id/mac_edit_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:gravity="top"
+                android:textSize="16dp"
+                android:scrollbars="vertical"
+                android:layout_below="@id/mac_text"
+                android:background="@drawable/editshape"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            >
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/colortextback"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:layout_marginRight="10dp"
+            >
+
+            <TextView
+                android:id="@+id/ase_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="汇编程序编辑"
+                android:textSize="16dp"
+                android:textColor="@color/colorBlack"
+                android:background="@color/colortextback"/>
+
+            <EditText
+                android:id="@+id/ase_edit_code"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:gravity="top"
+                android:textSize="16dp"
+                android:scrollbars="vertical"
+                android:layout_below="@id/ase_text"
+                android:background="@drawable/editshape"
+
+                />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
