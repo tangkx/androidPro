@@ -5,30 +5,38 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.guoqi.iosdialog.IOSDialog;
 import com.tkx.keyboard.DBHelper;
 import com.tkx.utils.FileUtils;
+import com.tkx.utils.HelpDialog;
 import com.tkx.utils.Htools;
 import com.tkx.utils.MachineTools;
 import com.tkx.utils.Mtools;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,13 +54,15 @@ public class CodeActivity extends AppCompatActivity
     private EditText e_mac, e_ase;
     private DrawerLayout drawer;
     private NavigationView navigationView;
-    private ImageView img_open_nav, img_back;
+    private ImageView img_open_nav, img_back, img_load;
     private DBHelper db;
     private SharedPreferences share;
     private SharedPreferences.Editor editor;
     boolean flag = false;
     private  ArrayAdapter<String> adapter;
     private HashMap<String, String> files;
+    private String helpText = "";
+    private boolean LOAD_TAG = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +71,9 @@ public class CodeActivity extends AppCompatActivity
         setContentView(R.layout.editlayout);
 
         initView();
+
+//        String res = getHelpFile("help.txt");
+//        Toast.makeText(this,res,Toast.LENGTH_LONG).show();
 
     }
 
@@ -83,6 +96,8 @@ public class CodeActivity extends AppCompatActivity
         img_open_nav.setOnClickListener(this);
         img_back = (ImageView) findViewById(R.id.back_front);
         img_back.setOnClickListener(this);
+        img_load = (ImageView) findViewById(R.id.load_code);
+        img_load.setOnClickListener(this);
 
         int flag = db.query();
         if (flag == 0) {
@@ -93,8 +108,14 @@ public class CodeActivity extends AppCompatActivity
                 }
             }).start();
             db.update(1);
-            Log.d("result:", "ok");
         }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                helpText = getHelpFile("help.txt");
+            }
+        }).start();
 
         String macPro = getIntent().getStringExtra("macPro");
         String asePro = getIntent().getStringExtra("asePro");
@@ -169,7 +190,19 @@ public class CodeActivity extends AppCompatActivity
             String[] macArr = getMacCommand();
             if (macArr != null) {
                 List<String> AseList = mt.MACtoASE(macArr);
-                setAseData(AseList);
+                if(AseList != null){
+                    setAseData(AseList);
+                    final IOSDialog builder = new IOSDialog(this).builder();
+                    builder.setMsg(".....反编译成功.....");
+                    builder.setNegativeButton("确定", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            builder.dismiss();
+                        }
+                    });
+                    builder.show();
+                }
+
             }
 
         } else if (id == R.id.ase_open) {//打开汇编文件
@@ -220,34 +253,41 @@ public class CodeActivity extends AppCompatActivity
             String[] AseStr = getAseCommand();
             if (AseStr != null) {
                 List<String> MacList = ht.ASEtoMAC(AseStr);
-                setMacData(MacList);
-            }
-
-        } else if (id == R.id.load_code) {
-
-            editor = share.edit();
-            String macPro = e_mac.getText().toString().trim();
-            String asePro = e_ase.getText().toString().trim();
-            Log.d("Program", macPro);
-            Log.d("Program", asePro);
-
-            editor.putString("macPro", macPro);
-            editor.putString("asePro", asePro);
-            editor.commit();
-
-            String[] macArr = getMacCommand();
-            if (macArr != null) {
-                List<String> macLoad = loadResult(macArr);
-                if(macLoad != null){
-                    Intent intent = new Intent();
-                    intent.putExtra("mac_arr", (Serializable) macLoad);
-                    this.setResult(RESULT_OK, intent);
-                    this.finish();
+                if(MacList != null){
+                    setMacData(MacList);
+                    final IOSDialog builder = new IOSDialog(this).builder();
+                    builder.setMsg(".....编译成功.....");
+                    builder.setNegativeButton("确定", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            builder.dismiss();
+                        }
+                    });
+                    builder.show();
                 }
 
             }
 
         } else if (id == R.id.help) {
+            final HelpDialog dialog = new HelpDialog(this);
+            LayoutInflater inflater = getLayoutInflater();
+            LinearLayout view = (LinearLayout) inflater.inflate(R.layout.helpdialog,null);
+            ImageView cancel = (ImageView) view.findViewById(R.id.help_cancle);
+            EditText editText = (EditText) view.findViewById(R.id.help_text);
+            editText.setText(helpText);
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(dialog != null){
+                       dialog.cancel();
+                    }
+                }
+            });
+//            dialog.setView(view);
+            dialog.show();
+            dialog.setCancelable(false);
+            dialog.setContentView(view);
+
 
         }
 
@@ -259,32 +299,42 @@ public class CodeActivity extends AppCompatActivity
     public void showAlertDialog(final String[] arr, final int f, final String path) {
 
         final EditText input = new EditText(this);
+        input.setBackground(getResources().getDrawable(R.drawable.editshape));
+        final IOSDialog dialog = new IOSDialog(this).builder();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("保存文件").setView(input).setNegativeButton("取消", null);
-        builder.setPositiveButton("保存", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
+        dialog.setTitle("保存文件").setView(input).setNegativeButton("取消", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setPositiveButton("保存", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 String textname = input.getText().toString().trim();
                 if (textname.isEmpty()) {
                     MachineTools.showMessageDialog(CodeActivity.this, "请输入文件名");
                 } else {
                     boolean flag = FileUtils.checkFileReapt(textname,path);
                     if(flag){
-                        AlertDialog.Builder alert = new AlertDialog.Builder(CodeActivity.this);
+                        final IOSDialog alert = new IOSDialog(CodeActivity.this).builder();
                         alert.setTitle("文件已存在，是否覆盖");
-                        alert.setPositiveButton("是", new DialogInterface.OnClickListener() {
+                        alert.setPositiveButton("是", new View.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(View v) {
                                 String textname = input.getText().toString().trim();
                                 int re = FileUtils.outputFile(arr, textname, f);
 
                                 MachineTools.showMessageDialog(CodeActivity.this, "保存文件成功");
-
                             }
                         });
-                        alert.setNegativeButton("否",null);
+                        alert.setNegativeButton("否", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alert.dismiss();
+                            }
+                        });
                         alert.show();
-
 
                     }else {
                         int re = FileUtils.outputFile(arr, textname, f);
@@ -293,10 +343,9 @@ public class CodeActivity extends AppCompatActivity
                     }
 
                 }
-
             }
         });
-        builder.show();
+        dialog.show();
     }
 
     @Override
@@ -363,9 +412,89 @@ public class CodeActivity extends AppCompatActivity
 
                 finish();
                 break;
+            case R.id.load_code:
+
+                if(FileUtils.isInitFlag()){
+
+                    final IOSDialog dialog = new IOSDialog(this).builder();
+                    dialog.setMsg("加载程序会初始化寄存器，是否要执行当前操作");
+                    dialog.setNegativeButton("否", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.setPositiveButton("是", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Message message = handler.obtainMessage();
+                            message.what = 1;
+                            message.sendToTarget();
+                        }
+                    });
+                    dialog.show();
+
+                }else {
+
+                    editor = share.edit();
+                    macPro = e_mac.getText().toString().trim();
+                    asePro = e_ase.getText().toString().trim();
+                    Log.d("Program", macPro);
+                    Log.d("Program", asePro);
+
+                    editor.putString("macPro", macPro);
+                    editor.putString("asePro", asePro);
+                    editor.commit();
+
+                    String[] macArr = getMacCommand();
+                    if (macArr != null) {
+                        List<String> macLoad = loadResult(macArr);
+                        if(macLoad != null){
+                            Intent intent = new Intent();
+                            intent.putExtra("mac_arr", (Serializable) macLoad);
+                            this.setResult(RESULT_OK, intent);
+                            this.finish();
+                        }
+
+                    }
+                }
+
+                FileUtils.setInitFlag(true);
+                break;
         }
     }
 
+    Handler handler = new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    editor = share.edit();
+                    String macPro = e_mac.getText().toString().trim();
+                    String asePro = e_ase.getText().toString().trim();
+                    Log.d("Program", macPro);
+                    Log.d("Program", asePro);
+
+                    editor.putString("macPro", macPro);
+                    editor.putString("asePro", asePro);
+                    editor.commit();
+
+                    String[] macArr = getMacCommand();
+                    if (macArr != null) {
+                        List<String> macLoad = loadResult(macArr);
+                        if(macLoad != null){
+                            Intent intent = new Intent();
+                            intent.putExtra("mac_arr", (Serializable) macLoad);
+                            CodeActivity.this.setResult(RESULT_OK, intent);
+                            CodeActivity.this.finish();
+                        }
+
+                    }
+                    break;
+            }
+        }
+    };
     /**
      * 检验机器码是否合格，返回要加载的数据
      *
@@ -606,5 +735,30 @@ public class CodeActivity extends AppCompatActivity
         }
 
         return fileList;
+    }
+
+    public String getHelpFile(String name){
+        int k = 0;
+        String res = "";
+        try{
+
+            InputStreamReader inputreader = new InputStreamReader(getResources().getAssets().open(name));
+            BufferedReader reader = new BufferedReader(inputreader);
+            String line = "";
+            while((line = reader.readLine()) != null){
+                if(k == 0){
+                    res += line;
+                }else{
+                    res += "\r\n"+line;
+                }
+                k++;
+            }
+            reader.close();
+            inputreader.close();
+
+        }catch (Exception e){
+
+        }
+        return res;
     }
 }

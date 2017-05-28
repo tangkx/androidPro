@@ -12,7 +12,9 @@
         android:id="@+id/top_bar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/maintopshape">
+        android:background="@drawable/maintopshape"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <TextView
             android:id="@+id/top_title"
@@ -20,15 +22,15 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:gravity="center"
-            android:text="存储程序式计算机模拟平台"
+            android:text="存储程序式虚拟机与编译器"
             android:textColor="@color/colorBlack"
-            android:textSize="18dp" />
+            android:textSize="16dp" />
 
         <ImageView
             android:id="@+id/jump_to_edit"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="80dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/top_title"
@@ -338,7 +340,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/buttonshape"
-                android:text="中央处理器初始化"
+                android:text="初始化处理器"
                 android:textColor="@color/colorBlack" />
 
             <Button
@@ -347,7 +349,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/buttonshape"
-                android:text="中央处理器单步执行"
+                android:text="单步执行机器代码"
                 android:textColor="@color/colorBlack" />
 
             <Button
@@ -356,11 +358,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/buttonshape"
-                android:text="自动模拟机器代码执行"
+                android:text="开始执行机器代码"
                 android:textColor="@color/colorBlack" />
 
         </LinearLayout>
 
     </LinearLayout>
+
 
 </RelativeLayout>

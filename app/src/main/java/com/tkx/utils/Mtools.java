@@ -30,7 +30,7 @@ public class Mtools {
 			command = list[i];
 			if (command.length() != 4) {
 
-				MachineTools.showMessageDialog(context,"错误行" + i + ":机器代码一行之能输入一条4位的指令");
+				MachineTools.showMessageDialog(context,"错误行" + (i+1) + ":机器代码一行之能输入一条4位的指令");
 				return null;
 			} else {
 				code = getOneStr(command);
@@ -42,7 +42,7 @@ public class Mtools {
 						reslut.add("LOAD R"+reg1+",["+data+"]");
 					}else{
 
-						MachineTools.showMessageDialog(context,"错误行" + i + ":寄存器范围0~5");
+						MachineTools.showMessageDialog(context,"错误行" + (i+1) + ":寄存器范围0~5");
 						return null;
 					}
 					break;
@@ -53,7 +53,7 @@ public class Mtools {
 						reslut.add("LOAD R"+reg1+","+data);
 					}else{
 
-						MachineTools.showMessageDialog(context,"错误行" + i + ":寄存器范围0~5");
+						MachineTools.showMessageDialog(context,"错误行" + (i+1) + ":寄存器范围0~5");
 						return null;
 					}
 					break;
@@ -64,7 +64,7 @@ public class Mtools {
 						reslut.add("STORE R"+reg1+",["+data+"]");
 					}else{
 
-						MachineTools.showMessageDialog(context,"错误行" + i + ":寄存器范围0~5");
+						MachineTools.showMessageDialog(context,"错误行" + (i+1) + ":寄存器范围0~5");
 						return null;
 					}
 					break;
@@ -72,7 +72,7 @@ public class Mtools {
 					String flag = getTwoStr(command);
 					if(!flag.equals("0")){
 
-						MachineTools.showMessageDialog(context,"错误行" + i + ":指令错误");
+						MachineTools.showMessageDialog(context,"错误行" + (i+1) + ":指令错误");
 						return null;
 					}else{
 						reg1 = getThreeStr(command);
@@ -81,7 +81,7 @@ public class Mtools {
 							reslut.add("MOV R"+reg1+",R"+reg2);
 						}else{
 
-							MachineTools.showMessageDialog(context,"错误行" + i + ":寄存器范围0~5");
+							MachineTools.showMessageDialog(context,"错误行" + (i+1) + ":寄存器范围0~5");
 							return null;
 						}
 					}
@@ -95,7 +95,7 @@ public class Mtools {
 						reslut.add("ADD R"+reg+",R"+reg1+",R"+reg2);
 					}else{
 
-						MachineTools.showMessageDialog(context,"错误行" + i + ":寄存器范围0~5");
+						MachineTools.showMessageDialog(context,"错误行" + (i+1) + ":寄存器范围0~5");
 						return null;
 					}
 					break;
@@ -107,12 +107,12 @@ public class Mtools {
 							reslut.add("SHL R"+reg1+","+data);
 						}else{
 
-							MachineTools.showMessageDialog(context,"错误行" + i + ":立即数错误");
+							MachineTools.showMessageDialog(context,"错误行" + (i+1) + ":立即数错误");
 							return null;
 						}
 					}else{
 
-						MachineTools.showMessageDialog(context,"错误行" + i + ":寄存器范围0~5");
+						MachineTools.showMessageDialog(context,"错误行" + (i+1) + ":寄存器范围0~5");
 						return null;
 					}
 					break;
@@ -124,11 +124,11 @@ public class Mtools {
 							reslut.add("NOT R"+reg1);
 						}else{
 
-							MachineTools.showMessageDialog(context,"错误行" + i + ":操作数过多");
+							MachineTools.showMessageDialog(context,"错误行" + (i+1) + ":操作数过多");
 						}
 					}else{
 
-						MachineTools.showMessageDialog(context,"错误行" + i + ":寄存器范围0~5");
+						MachineTools.showMessageDialog(context,"错误行" + (i+1) + ":寄存器范围0~5");
 						return null;
 					}
 					break;
@@ -140,12 +140,12 @@ public class Mtools {
 							reslut.add("JMP R"+reg1+","+data);
 						}else{
 
-							MachineTools.showMessageDialog(context,"错误行" + i + ":立即数错误");
+							MachineTools.showMessageDialog(context,"错误行" + (i+1) + ":立即数错误");
 							return null;
 						}
 					}else{
 
-						MachineTools.showMessageDialog(context,"错误行" + i + ":寄存器范围0~5");
+						MachineTools.showMessageDialog(context,"错误行" + (i+1) + ":寄存器范围0~5");
 						return null;
 					}
 					break;
@@ -155,14 +155,14 @@ public class Mtools {
 						reslut.add("HALT");
 					}else {
 
-						MachineTools.showMessageDialog(context,"错误行" + i + ":操作数过多");
+						MachineTools.showMessageDialog(context,"错误行" + (i+1) + ":操作数过多");
 						return null;
 					}
 					break;
 
 				default:
 
-					MachineTools.showMessageDialog(context,"错误行" + i + ":无法识别的指令");
+					MachineTools.showMessageDialog(context,"错误行" + (i+1) + ":无法识别的指令");
 
 					if(1 == 1){
 						return null;

@@ -18,6 +18,7 @@ import android.text.InputFilter;
 import android.text.Spanned;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ import com.tkx.entiys.SimulateData;
 import com.tkx.entiys.SimulateObject;
 import com.tkx.keyboard.DBHelper;
 import com.tkx.utils.CountRegister;
+import com.tkx.utils.FileUtils;
 import com.tkx.utils.MachineTools;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,6 +117,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         simList = initData();
         lAdapter = new ListAdapter(this, simList);
         mList = (ListView) findViewById(R.id.mlist);
+        mList.addHeaderView(LayoutInflater.from(this).inflate(R.layout.listhead,null));
 
 //        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
@@ -176,7 +179,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 resetList();
                 resetRegister();
                 mList.setSelection(0);
-
+                FileUtils.setInitFlag(false);
                 break;
 
             case R.id.btn_action:
@@ -210,7 +213,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 reflshList(arr);
                 resetRegister();
                 initCommandVal("00");
-                e_command.setText(SimulateObject.getCommandVal());
+                e_command.setText(SimulateObject.getCommandVal().toUpperCase());
 //                message = handler.obtainMessage();
 //                message.what = 6;
 //                handler.sendMessage(message);
@@ -246,7 +249,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     e_account.setBackground(getResources().getDrawable(R.drawable.textselectshape));
                     break;
                 case 4:
-                    e_account.setBackground(getResources().getDrawable(R.drawable.textshape));
+                    lAdapter.animationCheck(-1);
+
+                    //e_account.setBackground(getResources().getDrawable(R.drawable.textshape));
                     e_command.setBackground(getResources().getDrawable(R.drawable.textselectshape));
                     break;
                 case 5:
@@ -254,32 +259,35 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     break;
                 case 6:
 
-                    e_account.setText(SimulateObject.getAccountVal());
-                    e_command.setText(SimulateObject.getCommandVal());
-                    e_r0.setText(SimulateObject.getR0Val());
-                    e_r1.setText(SimulateObject.getR1Val());
-                    e_r2.setText(SimulateObject.getR2Val());
-                    e_r3.setText(SimulateObject.getR3Val());
-                    e_r4.setText(SimulateObject.getR4Val());
-                    e_r5.setText(SimulateObject.getR5Val());
+                    e_account.setText(SimulateObject.getAccountVal().toUpperCase());
+                    e_command.setText(SimulateObject.getCommandVal().toUpperCase());
+                    e_r0.setText(SimulateObject.getR0Val().toUpperCase());
+                    e_r1.setText(SimulateObject.getR1Val().toUpperCase());
+                    e_r2.setText(SimulateObject.getR2Val().toUpperCase());
+                    e_r3.setText(SimulateObject.getR3Val().toUpperCase());
+                    e_r4.setText(SimulateObject.getR4Val().toUpperCase());
+                    e_r5.setText(SimulateObject.getR5Val().toUpperCase());
 
-                    String account = SimulateObject.getAccountVal();
-                    int index = transformAcoountToIndex(account);
-                    lAdapter.setAnimationItem(index);
-                    lAdapter.setAnimationItem(index+1);
+//                    String account = SimulateObject.getAccountVal();
+//                    int index = transformAcoountToIndex(account);
+//                    lAdapter.setAnimationItem(index);
+//                    lAdapter.setAnimationItem(index+1);
 
 
                     break;
                 case 7:
+
+                    int in = transformAcoountToIndex(accountNum);
                     e_account.setBackground(getResources().getDrawable(R.drawable.textshape));
-//                    index = transformAcoountToIndex(accountNum);
-//                    lAdapter.animationCheck(index);
-//                    lAdapter.animationCheck(index+1);
+                    lAdapter.setAnimationItem(-1);
+                    lAdapter.animationCheck(in);
+                    lAdapter.animationCheck(in+1);
+                    Log.d("result",""+in);
 
                     break;
 
                 case 8:
-                    index = transformAcoountToIndex(SimulateObject.getAccountVal());
+                    int index = transformAcoountToIndex(SimulateObject.getAccountVal());
                     lAdapter.setAnimationItem(index);
                     lAdapter.setAnimationItem(index+1);
                     mList.setSelection(index/2);
@@ -306,6 +314,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     btn_action.setEnabled(true);
                     btn_auto_action.setEnabled(true);
                     break;
+                case 14:
+                    MachineTools.showMessageDialog(MainActivity.this,"机器指令存在错误");
+                    break;
 
             }
         }
@@ -326,7 +337,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             for (int j = 0; j <= 15; j++) {
 
                 sd = new SimulateData();
-                String addr = tranformData(i) + tranformData(j);
+                String addr = tranformData(i).toUpperCase() + tranformData(j).toUpperCase();
                 sd.setAddr(addr);
                 sd.setNumber("00");
                 sd.setFlag(0);
@@ -357,7 +368,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         for(int i = 0; i < arr.size(); i++){
 
-            simList.get(i).setNumber(arr.get(i));
+            simList.get(i).setNumber(arr.get(i).toUpperCase());
 
         }
         lAdapter.notifyDataSetChanged();
@@ -451,10 +462,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 handler.sendMessage(message);
                 Thread.sleep(500);
 
-//                message = handler.obtainMessage();
-//                message.what = 7;
-//                handler.sendMessage(message);
-//                Thread.sleep(500);
+
+                message = handler.obtainMessage();
+                message.what = 7;
+                handler.sendMessage(message);
+                Thread.sleep(500);
 
                 //指令寄存器动画
                 message = handler.obtainMessage();
@@ -486,16 +498,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     };
 
-//    Runnable reflshRegisterAnimation = new Runnable() {
-//        @Override
-//        public void run() {
-//
-//            //刷新寄存其中的值
-//            message = handler.obtainMessage();
-//            message.what = 6;
-//            handler.sendMessage(message);
-//        }
-//    };
+
 
     /**
      * 单步模拟机器代码执行
@@ -508,6 +511,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int index = transformAcoountToIndex(accountNum);
         String firstCom = getCurrCommand(index);
         String lastCom = getCurrCommand(index+1);
+        String Com = firstCom+lastCom;
         String code = firstCom.substring(0,1);
         String reg = "";
         String reg1 = "";
@@ -516,77 +520,131 @@ public class MainActivity extends Activity implements View.OnClickListener {
         switch (code){
 
             case "1":
-                reg = firstCom.substring(1,2);
-                index = transformAcoountToIndex(lastCom);
-                lastCom = getCurrCommand(index);
-                CountRegister.loadCommand(reg,lastCom);
-                updateAccountNum(accountNum);
+                if(Com.matches("^(1[0-5][0-9a-fA-F]{2})$")){
+                    reg = firstCom.substring(1,2);
+                    index = transformAcoountToIndex(lastCom);
+                    lastCom = getCurrCommand(index);
+                    CountRegister.loadCommand(reg,lastCom);
+                    updateAccountNum(accountNum);
+                }else{
+                    message = handler.obtainMessage();
+                    message.what = 14;
+                    handler.sendMessage(message);
+                }
 
                 break;
             case "2":
-                reg = firstCom.substring(1,2);
-                CountRegister.loadCommand(reg,lastCom);
-                updateAccountNum(accountNum);
+                if(Com.matches("^(2[0-5][0-9a-fA-F]{2})$")) {
+                    reg = firstCom.substring(1, 2);
+                    CountRegister.loadCommand(reg, lastCom);
+                    updateAccountNum(accountNum);
+                }else{
+                    message = handler.obtainMessage();
+                    message.what = 14;
+                    handler.sendMessage(message);
+                }
 
                 break;
             case "3":
-                reg = firstCom.substring(1,2);
-                String value = CountRegister.storeCommand(reg);
-                index = transformAcoountToIndex(accountNum);
-                setCurrCommand(index, value);
-                updateAccountNum(accountNum);
+                if(Com.matches("^(3[0-5][0-9a-fA-F]{2})$")) {
+                    reg = firstCom.substring(1, 2);
+                    String value = CountRegister.storeCommand(reg);
+                    index = transformAcoountToIndex(accountNum);
+                    setCurrCommand(index, value);
+                    updateAccountNum(accountNum);
+                }else{
+                    message = handler.obtainMessage();
+                    message.what = 14;
+                    handler.sendMessage(message);
+                }
 
                 break;
             case "4":
-                reg1 = lastCom.substring(0,1);
-                reg2 = lastCom.substring(1,2);
-                CountRegister.moveCommand(reg1,reg2);
-                updateAccountNum(accountNum);
+                if(Com.matches("^(40[0-5]{2})$")) {
+                    reg1 = lastCom.substring(0, 1);
+                    reg2 = lastCom.substring(1, 2);
+                    CountRegister.moveCommand(reg1, reg2);
+                    updateAccountNum(accountNum);
+                }else{
+                    message = handler.obtainMessage();
+                    message.what = 14;
+                    handler.sendMessage(message);
+                }
+
 
                 break;
             case "5":
-                reg = firstCom.substring(1,2);
-                reg1 = lastCom.substring(0,1);
-                reg2 = lastCom.substring(1,2);
-                int flag = CountRegister.addCommand(reg, reg1, reg2);
-                if(flag == -1){
-                    Toast.makeText(this, "寄存器溢出已自动截断", Toast.LENGTH_LONG).show();
+                if(Com.matches("^(5[0-5]{3})$")) {
+                    reg = firstCom.substring(1, 2);
+                    reg1 = lastCom.substring(0, 1);
+                    reg2 = lastCom.substring(1, 2);
+                    int flag = CountRegister.addCommand(reg, reg1, reg2);
+                    if (flag == -1) {
+                        Toast.makeText(this, "寄存器溢出已自动截断", Toast.LENGTH_LONG).show();
+                    }
+                    updateAccountNum(accountNum);
+                }else{
+                    message = handler.obtainMessage();
+                    message.what = 14;
+                    handler.sendMessage(message);
                 }
-                updateAccountNum(accountNum);
 
                 break;
             case "6":
-                reg = firstCom.substring(1,2);
-                int shlVal = Integer.parseInt(lastCom);
-                CountRegister.shlCommand(reg, shlVal);
-                updateAccountNum(accountNum);
+                if(Com.matches("^(6[0-5]0[0-9a-fA-F])$")) {
+                    reg = firstCom.substring(1, 2);
+                    int shlVal = Integer.parseInt(lastCom);
+                    CountRegister.shlCommand(reg, shlVal);
+                    updateAccountNum(accountNum);
+                }else{
+                    message = handler.obtainMessage();
+                    message.what = 14;
+                    handler.sendMessage(message);
+                }
 
                 break;
             case "7":
-                reg = firstCom.substring(1,2);
-                CountRegister.notCommand(reg);
-                updateAccountNum(accountNum);
+                if(Com.matches("^(7[0-5]00)$")) {
+                    reg = firstCom.substring(1, 2);
+                    CountRegister.notCommand(reg);
+                    updateAccountNum(accountNum);
+                }else{
+                    message = handler.obtainMessage();
+                    message.what = 14;
+                    handler.sendMessage(message);
+                }
 
                 break;
             case "8":
-                reg = firstCom.substring(1,2);
-                int i = CountRegister.jmpCommand(reg, lastCom);
-                if(i == 0){
+                if(Com.matches("^(8[0-5][0-9a-fA-F]{2})$")) {
+                    reg = firstCom.substring(1, 2);
+                    int i = CountRegister.jmpCommand(reg, lastCom);
+                    if (i == 0) {
 
-                    updateAccountNum(accountNum);
+                        updateAccountNum(accountNum);
 
+                    } else {
+                        Log.d("result:", "跳转");
+                        initCommandVal(SimulateObject.getAccountVal());
+                    }
                 }else{
-                    Log.d("result:","跳转");
-                    initCommandVal(SimulateObject.getAccountVal());
+                    message = handler.obtainMessage();
+                    message.what = 14;
+                    handler.sendMessage(message);
                 }
 
                 break;
             case "9":
-//                MachineTools.showMessageDialog(this,"一段完整的程序运行完成");
-                message = handler.obtainMessage();
-                message.what = 10;
-                handler.sendMessage(message);
-                updateAccountNum("-2");
+                if(Com.matches("^(9000)$")) {
+                    message = handler.obtainMessage();
+                    message.what = 10;
+                    handler.sendMessage(message);
+                    updateAccountNum("-2");
+                }else{
+                    message = handler.obtainMessage();
+                    message.what = 14;
+                    handler.sendMessage(message);
+                }
 
                 break;
             default:
@@ -597,43 +655,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
         }
 
-
-    }
-
-    /**
-     *  更新计数器数值
-     * @param accountNum
-     */
-    public void updateAccountNum(String accountNum){
-
-        int account = Integer.parseInt(accountNum,16);
-        account = account + 2;
-        if(account <= 15){
-            accountNum = "0"+ Integer.toHexString(account);
-        }else{
-            accountNum = Integer.toHexString(account);
-        }
-
-        String firstCom = getCurrCommand(account);
-        String lastCom = getCurrCommand(account+1);
-        SimulateObject.setCommandVal(firstCom+lastCom);
-        SimulateObject.setAccountVal(accountNum);
-
-    }
-
-    /**
-     * 更新指令寄存器数值
-     * @param accountNum
-     */
-    public void initCommandVal(String accountNum){
-
-        if(accountNum != null){
-
-            int index = transformAcoountToIndex(accountNum);
-            String firstCom = getCurrCommand(index);
-            String lastCom = getCurrCommand(index+1);
-            SimulateObject.setCommandVal(firstCom+lastCom);
-        }
 
     }
 
@@ -651,6 +672,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             String reg = "";
             String reg1 = "";
             String reg2 = "";
+            String Com = "";
+            boolean Runflag = true;
 
             //设置初始化和单步执行不可用
             message = handler.obtainMessage();
@@ -661,15 +684,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 try{
 
+                    accountNum = SimulateObject.getAccountVal();
+                    int index = transformAcoountToIndex(accountNum);
+
                     message = handler.obtainMessage();
                     message.what = 3;
                     handler.sendMessage(message);
                     Thread.sleep(500);
 
-//                    message = handler.obtainMessage();
-//                    message.what = 7;
-//                    handler.sendMessage(message);
-//                    Thread.sleep(500);
+                    message = handler.obtainMessage();
+                    message.what = 7;
+                    handler.sendMessage(message);
+                    Thread.sleep(500);
 
                     message = handler.obtainMessage();
                     message.what = 4;
@@ -689,10 +715,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     handler.sendMessage(message);
 
 
-                    accountNum = SimulateObject.getAccountVal();
-                    int index = transformAcoountToIndex(accountNum);
                     String firstCom = getCurrCommand(index);
                     String lastCom = getCurrCommand(index+1);
+                    Com = firstCom+lastCom;
                     code = firstCom.substring(0,1);
                     reg = "";
                     reg1 = "";
@@ -702,76 +727,150 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     switch (code){
 
                         case "1":
-                            reg = firstCom.substring(1,2);
-                            index = transformAcoountToIndex(lastCom);
-                            lastCom = getCurrCommand(index);
-                            CountRegister.loadCommand(reg,lastCom);
-                            updateAccountNum(accountNum);
+                            if(Com.matches("^(1[0-5][0-9a-fA-F]{2})$")) {
+                                reg = firstCom.substring(1, 2);
+                                index = transformAcoountToIndex(lastCom);
+                                lastCom = getCurrCommand(index);
+                                CountRegister.loadCommand(reg, lastCom);
+                                updateAccountNum(accountNum);
+                            }else{
+                                message = handler.obtainMessage();
+                                message.what = 14;
+                                handler.sendMessage(message);
+                                Runflag = false;
+                            }
 
                             break;
                         case "2":
-                            reg = firstCom.substring(1,2);
-                            CountRegister.loadCommand(reg,lastCom);
-                            updateAccountNum(accountNum);
+                            if(Com.matches("^(2[0-5][0-9a-fA-F]{2})$")) {
+                                reg = firstCom.substring(1, 2);
+                                CountRegister.loadCommand(reg, lastCom);
+                                updateAccountNum(accountNum);
+                            }else{
+                                message = handler.obtainMessage();
+                                message.what = 14;
+                                handler.sendMessage(message);
+                                Runflag = false;
+                            }
 
                             break;
                         case "3":
-                            reg = firstCom.substring(1,2);
-                            String value = CountRegister.storeCommand(reg);
-                            index = transformAcoountToIndex(accountNum);
-                            setCurrCommand(index, value);
-                            updateAccountNum(accountNum);
+                            if(Com.matches("^(3[0-5][0-9a-fA-F]{2})$")) {
+                                reg = firstCom.substring(1, 2);
+                                String value = CountRegister.storeCommand(reg);
+                                index = transformAcoountToIndex(accountNum);
+                                setCurrCommand(index, value);
+                                updateAccountNum(accountNum);
+                            }else{
+                                message = handler.obtainMessage();
+                                message.what = 14;
+                                handler.sendMessage(message);
+                                Runflag = false;
+                            }
 
                             break;
                         case "4":
-                            reg1 = lastCom.substring(0,1);
-                            reg2 = lastCom.substring(1,2);
-                            CountRegister.moveCommand(reg1,reg2);
-                            updateAccountNum(accountNum);
+                            if(Com.matches("^(40[0-5]{2})$")) {
+                                reg1 = lastCom.substring(0, 1);
+                                reg2 = lastCom.substring(1, 2);
+                                CountRegister.moveCommand(reg1, reg2);
+                                updateAccountNum(accountNum);
+                            }else{
+                                message = handler.obtainMessage();
+                                message.what = 14;
+                                handler.sendMessage(message);
+                                Runflag = false;
+                            }
 
                             break;
                         case "5":
-                            reg = firstCom.substring(1,2);
-                            reg1 = lastCom.substring(0,1);
-                            reg2 = lastCom.substring(1,2);
-                            int flag = CountRegister.addCommand(reg, reg1, reg2);
-                            if(flag == -1){
+                            if(Com.matches("^(5[0-5]{3})$")) {
+                                reg = firstCom.substring(1, 2);
+                                reg1 = lastCom.substring(0, 1);
+                                reg2 = lastCom.substring(1, 2);
+                                int flag = CountRegister.addCommand(reg, reg1, reg2);
+                                if (flag == -1) {
+                                    message = handler.obtainMessage();
+                                    message.what = 9;
+                                    handler.sendMessage(message);
+                                }
+                                updateAccountNum(accountNum);
+                            }else{
                                 message = handler.obtainMessage();
-                                message.what = 9;
+                                message.what = 14;
                                 handler.sendMessage(message);
+                                Runflag = false;
                             }
-                            updateAccountNum(accountNum);
 
                             break;
                         case "6":
-                            reg = firstCom.substring(1,2);
-                            int shlVal = Integer.parseInt(lastCom);
-                            CountRegister.shlCommand(reg, shlVal);
-                            updateAccountNum(accountNum);
-
-                            break;
-                        case "7":
-                            reg = firstCom.substring(1,2);
-                            CountRegister.notCommand(reg);
-                            updateAccountNum(accountNum);
-
-                            break;
-                        case "8":
-                            reg = firstCom.substring(1,2);
-                            int i = CountRegister.jmpCommand(reg, lastCom);
-                            if(i == 0){
-
+                            if(Com.matches("^(6[0-5]0[0-9a-fA-F])$")) {
+                                reg = firstCom.substring(1, 2);
+                                int shlVal = Integer.parseInt(lastCom);
+                                CountRegister.shlCommand(reg, shlVal);
                                 updateAccountNum(accountNum);
-
                             }else{
-                                Log.d("result:","跳转");
-                                initCommandVal(SimulateObject.getAccountVal());
+                                message = handler.obtainMessage();
+                                message.what = 14;
+                                handler.sendMessage(message);
+                                Runflag = false;
                             }
 
                             break;
+                        case "7":
+                            if(Com.matches("^(7[0-5]00)$")) {
+                                reg = firstCom.substring(1, 2);
+                                CountRegister.notCommand(reg);
+                                updateAccountNum(accountNum);
+                            }else{
+                                message = handler.obtainMessage();
+                                message.what = 14;
+                                handler.sendMessage(message);
+                                Runflag = false;
+                            }
+
+                            break;
+                        case "8":
+                            if(Com.matches("^(8[0-5][0-9a-fA-F]{2})$")) {
+                                reg = firstCom.substring(1, 2);
+                                int i = CountRegister.jmpCommand(reg, lastCom);
+                                if (i == 0) {
+
+                                    updateAccountNum(accountNum);
+
+                                } else {
+                                    Log.d("result:", "跳转");
+                                    initCommandVal(SimulateObject.getAccountVal());
+                                }
+                            }else{
+                                message = handler.obtainMessage();
+                                message.what = 14;
+                                handler.sendMessage(message);
+                                Runflag = false;
+                            }
+                            break;
+                        case "9":
+                            if(Com.matches("^(9000)$")) {
+                                message = handler.obtainMessage();
+                                message.what = 10;
+                                handler.sendMessage(message);
+                                Runflag = false;
+                            }else{
+                                message = handler.obtainMessage();
+                                message.what = 14;
+                                handler.sendMessage(message);
+                                Runflag = false;
+                            }
+                            break;
+                        default:
+                            message = handler.obtainMessage();
+                            message.what = 11;
+                            handler.sendMessage(message);
+                            Runflag = false;
+                            break;
                     }
 
-                    Thread.sleep(1000);
+                    Thread.sleep(500);
 
 
                 }catch (Exception e){
@@ -780,17 +879,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
 
 
-            }while (code.matches("^[1-8]$"));
+            }while (Runflag);
 
-            if(code.equals("9")){
-                message = handler.obtainMessage();
-                message.what = 10;
-                handler.sendMessage(message);
-            }else{
-                message = handler.obtainMessage();
-                message.what = 11;
-                handler.sendMessage(message);
-            }
+//            if(code.equals("9")){
+//                if(Com.matches("^(9000)$")) {
+//                    message = handler.obtainMessage();
+//                    message.what = 10;
+//                    handler.sendMessage(message);
+//                }
+//            }else{
+//                message = handler.obtainMessage();
+//                message.what = 11;
+//                handler.sendMessage(message);
+//            }
 
             //设置初始化和单步执行可用
             message = handler.obtainMessage();
@@ -799,6 +900,44 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             Thread.interrupted();
         }
+    }
+
+
+    /**
+     *  更新计数器数值
+     * @param accountNum
+     */
+    public void updateAccountNum(String accountNum){
+
+        int account = Integer.parseInt(accountNum,16);
+        account = account + 2;
+        if(account <= 15){
+            accountNum = "0"+ Integer.toHexString(account);
+        }else{
+            accountNum = Integer.toHexString(account);
+        }
+
+        String firstCom = getCurrCommand(account);
+        String lastCom = getCurrCommand(account+1);
+        SimulateObject.setCommandVal((firstCom+lastCom));
+        SimulateObject.setAccountVal(accountNum);
+
+    }
+
+    /**
+     * 更新指令寄存器数值
+     * @param accountNum
+     */
+    public void initCommandVal(String accountNum){
+
+        if(accountNum != null){
+
+            int index = transformAcoountToIndex(accountNum);
+            String firstCom = getCurrCommand(index);
+            String lastCom = getCurrCommand(index+1);
+            SimulateObject.setCommandVal((firstCom+lastCom));
+        }
+
     }
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -833,11 +972,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             String firstCom = getCurrCommand(position);
             String lastCom = getCurrCommand(position+1);
-            SimulateObject.setCommandVal(firstCom+lastCom);
+            SimulateObject.setCommandVal((firstCom+lastCom));
             SimulateObject.setAccountVal(accountNum);
 
-            e_account.setText(SimulateObject.getAccountVal());
-            e_command.setText(SimulateObject.getCommandVal());
+            e_account.setText(SimulateObject.getAccountVal().toUpperCase());
+            e_command.setText(SimulateObject.getCommandVal().toUpperCase());
 
             lAdapter.setAnimationItem(position);
             lAdapter.setAnimationItem(position+1);

@@ -1,31 +1,59 @@
 [
     {
-        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\save_file.png",
-        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\save_file.png"
-    },
-    {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\load.png",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\load.png"
+    },
+    {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\save_file.png",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\save_file.png"
     },
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\back.png",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\back.png"
     },
     {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\icon.png",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\icon.png"
+    },
+    {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\p1.png",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\p1.png"
+    },
+    {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\helpicon.png",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\helpicon.png"
+    },
+    {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\open_file.png",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\open_file.png"
+    },
+    {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\loadcode.png",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\loadcode.png"
     },
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\menu.png",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\menu.png"
     },
     {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\p3.png",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\p3.png"
+    },
+    {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\nav_view_bac.png",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\nav_view_bac.png"
     },
     {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\p2.png",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\p2.png"
+    },
+    {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\edit_code.png",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\edit_code.png"
+    },
+    {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\p4.png",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\p4.png"
     },
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\help.png",

@@ -14,7 +14,7 @@
             <item
                 android:id="@+id/mac_to_ase"
                 android:icon="@mipmap/work_file"
-                android:title="代码反汇编"/>
+                android:title="代码反编译"/>
 
         </menu>
 
@@ -33,17 +33,13 @@
             <item
                 android:id="@+id/ase_to_mac"
                 android:icon="@mipmap/work_file"
-                android:title="代码反汇编"/>
+                android:title="代码编译"/>
 
         </menu>
     </item>
 
     <item android:title="其它操作">
         <menu>
-            <item
-                android:id="@+id/load_code"
-                android:icon="@mipmap/load"
-                android:title="装载程序"/>
             <item
                 android:id="@+id/help"
                 android:icon="@mipmap/help"

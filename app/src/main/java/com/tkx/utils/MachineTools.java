@@ -3,7 +3,9 @@ package com.tkx.utils;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.View;
 
+import com.guoqi.iosdialog.IOSDialog;
 import com.tkx.entiys.MachineError;
 
 import java.util.ArrayList;
@@ -55,16 +57,14 @@ public class MachineTools {
 
     public static void showMessageDialog(Context context, String message){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-        builder.setMessage(message);
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        final IOSDialog dialog = new IOSDialog(context).builder();
+        dialog.setMsg(message);
+        dialog.setPositiveButton("确定", new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
+            public void onClick(View v) {
+                dialog.dismiss();
             }
         });
-        AlertDialog dialog = builder.create();
         dialog.show();
     }
 

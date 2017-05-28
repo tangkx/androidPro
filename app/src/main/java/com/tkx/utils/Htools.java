@@ -52,14 +52,14 @@ public class Htools {
 
                     if (arr.length != 3) {
                         //System.out.println("arr's length :" + arr.length);
-                        MachineTools.showMessageDialog(context, "错误行" + i + ":操作数不符合");
+                        MachineTools.showMessageDialog(context, "错误行" + (i+1) + ":操作数不符合");
                         return null;
                     }
 
                     String register = "";
                     if (!checkRegister(arr[1])) {
 
-                        MachineTools.showMessageDialog(context, "错误行" + i + ":寄存器范围0~5");
+                        MachineTools.showMessageDialog(context, "错误行" + (i+1) + ":寄存器范围0~5");
                         return null;
                     } else {
                         register = arr[1].substring(arr[1].length() - 1);
@@ -82,7 +82,7 @@ public class Htools {
                             res = code + register + arr[2];
                             reslut.add(res);
                         } else {
-                            MachineTools.showMessageDialog(context, "错误行" + i + ":操作数范围00~ff");
+                            MachineTools.showMessageDialog(context, "错误行" + (i+1) + ":操作数范围00~ff");
                             return null;
                         }
                     }
@@ -98,7 +98,7 @@ public class Htools {
                         res = code + register + s;
                         reslut.add(res);
                     } else {
-                        MachineTools.showMessageDialog(context, "错误行" + i + ":寄存器范围0~5或操作数有误");
+                        MachineTools.showMessageDialog(context, "错误行" + (i+1) + ":寄存器范围0~5或操作数有误");
                     }
                     break;
 
@@ -106,7 +106,7 @@ public class Htools {
 
                     code = "4";
                     if (arr.length != 3) {
-                        MachineTools.showMessageDialog(context, "错误行" + i + ":操作数不符合");
+                        MachineTools.showMessageDialog(context, "错误行" + (i+1) + ":操作数不符合");
                         return null;
                     }
                     if (checkRegister(arr[1]) && checkRegister(arr[2])) {
@@ -115,14 +115,14 @@ public class Htools {
                         res = code + "0" + reg1 + reg2;
                         reslut.add(res);
                     } else {
-                        MachineTools.showMessageDialog(context, "错误行" + i + ":寄存器范围0~5");
+                        MachineTools.showMessageDialog(context, "错误行" + (i+1) + ":寄存器范围0~5");
                         return null;
                     }
                     break;
                 case "ADD":
 
                     if (arr.length != 4) {
-                        MachineTools.showMessageDialog(context, "错误行" + i + ":操作数不符合");
+                        MachineTools.showMessageDialog(context, "错误行" + (i+1) + ":操作数不符合");
                         return null;
                     }
                     code = "5";
@@ -134,7 +134,7 @@ public class Htools {
                         res = code + reg1 + reg2 + reg3;
                         reslut.add(res);
                     } else {
-                        MachineTools.showMessageDialog(context, "错误行" + i + ":寄存器范围0~5");
+                        MachineTools.showMessageDialog(context, "错误行" + (i+1) + ":寄存器范围0~5");
                         return null;
                     }
                     break;
@@ -142,7 +142,7 @@ public class Htools {
 
                     code = "6";
                     if (arr.length != 3) {
-                        MachineTools.showMessageDialog(context, "错误行" + i + ":操作数不符合");
+                        MachineTools.showMessageDialog(context, "错误行" + (i+1) + ":操作数不符合");
                         return null;
                     }
 
@@ -152,7 +152,7 @@ public class Htools {
                         res = code + reg1 + "0" + rnum;
                         reslut.add(res);
                     } else {
-                        MachineTools.showMessageDialog(context, "错误行" + i + ":寄存器范围0~5,立即数范围0-f");
+                        MachineTools.showMessageDialog(context, "错误行" + (i+1) + ":寄存器范围0~5,立即数范围0-f");
                         return null;
                     }
                     break;
@@ -160,7 +160,7 @@ public class Htools {
 
                     code = "7";
                     if (arr.length != 2) {
-                        MachineTools.showMessageDialog(context, "错误行" + i + ":操作数不符合");
+                        MachineTools.showMessageDialog(context, "错误行" + (i+1) + ":操作数不符合");
                         return null;
                     }
                     if (checkRegister(arr[1])) {
@@ -168,7 +168,7 @@ public class Htools {
                         res = code + reg1 + "00";
                         reslut.add(res);
                     } else {
-                        MachineTools.showMessageDialog(context, "错误行" + i + ":寄存器范围0~5");
+                        MachineTools.showMessageDialog(context, "错误行" + (i+1) + ":寄存器范围0~5");
                         return null;
                     }
 
@@ -177,7 +177,7 @@ public class Htools {
 
                     code = "8";
                     if (arr.length != 3) {
-                        MachineTools.showMessageDialog(context, "错误行" + i + ":操作数不符合");
+                        MachineTools.showMessageDialog(context, "错误行" + (i+1) + ":操作数不符合");
                         return null;
                     }
 
@@ -188,7 +188,7 @@ public class Htools {
                         res = code + reg1 + tag;
                         reslut.add(res);
                     } else {
-                        MachineTools.showMessageDialog(context, "错误行" + i + ":寄存器范围0~5");
+                        MachineTools.showMessageDialog(context, "错误行" + (i+1) + ":寄存器范围0~5");
                         return null;
                     }
                     break;
@@ -204,7 +204,7 @@ public class Htools {
                     break;
 
                 default:
-                    MachineTools.showMessageDialog(context, "错误行" + i + ":未知指令");
+                    MachineTools.showMessageDialog(context, "错误行" + (i+1) + ":未知指令");
                     if (1 == 1) {
                         return null;
                     }

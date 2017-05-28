@@ -87,7 +87,7 @@ public class ListAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.listitem, null);
             viewHolder.addr = (TextView) view.findViewById(R.id.addrtext);
             viewHolder.number = (EditText) view.findViewById(R.id.numbertext);
-            viewHolder.number.setFilters(new InputFilter[]{inputFilter,new InputFilter.LengthFilter(2)});
+            viewHolder.number.setFilters(new InputFilter[]{inputFilter, new InputFilter.LengthFilter(2)});
 
             viewHolder.number.setTag(position);
             viewHolder.number.setOnTouchListener(new View.OnTouchListener() {
@@ -138,16 +138,15 @@ public class ListAdapter extends BaseAdapter {
                         Log.e("老铁出错了:", "");
                         listdata.get(position).setNumber("00");
 
-                    }else if(s.length() == 1){
+                    } else if (s.length() == 1) {
 
                         int position = (Integer) mHolder.number.getTag();
                         Log.e("老铁出错了:", "");
-                        listdata.get(position).setNumber("0"+s.toString());
-                    }
-                    else{
+                        listdata.get(position).setNumber("0" + s.toString());
+                    } else {
 
                         int position = (Integer) mHolder.number.getTag();
-                        Log.e( "EditText的标记:","");
+                        Log.e("EditText的标记:", "");
                         listdata.get(position).setNumber(s.toString());
                     }
 
@@ -183,7 +182,7 @@ public class ListAdapter extends BaseAdapter {
 
                 Intent intent = new Intent();
                 intent.setAction("com.broadcast");
-                intent.putExtra("position",position);
+                intent.putExtra("position", position);
                 context.sendBroadcast(intent);
 
 //                setAnimationItem(position);
@@ -194,21 +193,38 @@ public class ListAdapter extends BaseAdapter {
         });
 
 
-
         String addr = listdata.get(position).getAddr();
         String number = listdata.get(position).getNumber();
         viewHolder.addr.setText(addr);
         viewHolder.number.setText(number);
 
 
+//        if (animationItem == position || animationItem == (position + 1)) {
+//
+//            viewHolder.addr.setBackground(context.getResources().getDrawable(R.drawable.textanimationshape));
+//            viewHolder.number.setBackground(context.getResources().getDrawable(R.drawable.textanimationshape));
+//            Log.d("animation",""+position);
+//
+//        } else if (ckeckItem == position || ckeckItem == (position + 1)) {
+//            viewHolder.addr.setBackground(context.getResources().getDrawable(R.drawable.textselectshape));
+//            viewHolder.number.setBackground(context.getResources().getDrawable(R.drawable.textselectshape));
+//            Log.d("ckeckItem",""+position);
+//
+//        } else {
+//            viewHolder.addr.setBackground(context.getResources().getDrawable(R.drawable.textshape));
+//            viewHolder.number.setBackground(context.getResources().getDrawable(R.drawable.textshape));
+//        }
+
         if (animationItem == position || animationItem == (position + 1)) {
 
             viewHolder.addr.setBackground(context.getResources().getDrawable(R.drawable.textanimationshape));
             viewHolder.number.setBackground(context.getResources().getDrawable(R.drawable.textanimationshape));
+            Log.d("animation", "" + position);
 
         } else if (ckeckItem == position || ckeckItem == (position + 1)) {
             viewHolder.addr.setBackground(context.getResources().getDrawable(R.drawable.textselectshape));
             viewHolder.number.setBackground(context.getResources().getDrawable(R.drawable.textselectshape));
+            Log.d("ckeckItem", "" + position);
 
         } else {
             viewHolder.addr.setBackground(context.getResources().getDrawable(R.drawable.textshape));
@@ -232,7 +248,7 @@ public class ListAdapter extends BaseAdapter {
 
             String regex = "^[0-9a-fA-F]+$";
 
-            if(!(source.toString().matches(regex))){
+            if (!(source.toString().matches(regex))) {
                 return "";
             }
             return null;

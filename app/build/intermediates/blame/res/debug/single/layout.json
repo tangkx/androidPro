@@ -24,12 +24,12 @@
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\layout\\abc_popup_menu_item_layout.xml"
     },
     {
-        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\listitem.xml",
-        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\layout\\listitem.xml"
-    },
-    {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_icon.xml",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\layout\\abc_list_menu_item_icon.xml"
+    },
+    {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\listitem.xml",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\layout\\listitem.xml"
     },
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
@@ -100,6 +100,10 @@
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\layout\\abc_alert_dialog_title_material.xml"
     },
     {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\helpdialog.xml",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\layout\\helpdialog.xml"
+    },
+    {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_title_item.xml",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\layout\\abc_action_bar_title_item.xml"
     },
@@ -136,8 +140,16 @@
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\layout\\notification_template_part_time.xml"
     },
     {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\listhead.xml",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\layout\\listhead.xml"
+    },
+    {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_main.xml",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view_common_alertdialog.xml",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.guoqi.widget\\iosdialog\\0.2\\res\\layout\\view_common_alertdialog.xml"
     },
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_header_item_layout.xml",
@@ -146,6 +158,10 @@
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\support_simple_spinner_dropdown_item.xml",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\layout\\support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\welcomelayout.xml",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\layout\\welcomelayout.xml"
     },
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_up_container.xml",
@@ -166,6 +182,10 @@
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_part_chronometer.xml",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\layout\\notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_view_pager4.xml",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\layout\\activity_view_pager4.xml"
     },
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",

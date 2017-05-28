@@ -29,6 +29,15 @@ public class FileUtils {
             getAbsolutePath().toString()+ "/AAVcomputerTestFiles"+"/macFiles";
     public static final String ASE_FILE_DIR = Environment.getExternalStorageDirectory().
             getAbsolutePath().toString()+ "/AAVcomputerTestFiles"+"/aseFiles";
+    public static  boolean INIT_FLAG = false;
+
+    public static boolean isInitFlag() {
+        return INIT_FLAG;
+    }
+
+    public static void setInitFlag(boolean initFlag) {
+        INIT_FLAG = initFlag;
+    }
 
     public static BufferedReader getFileBufferedReader(Uri data) {
 

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical"
+    >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittopshape"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/helpicon"
+                    android:id="@+id/icon"
+                    android:layout_marginLeft="20dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="帮助文档"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:layout_toRightOf="@id/icon"
+                    android:layout_marginLeft="5dp"
+                    android:layout_centerVertical="true"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/back"
+                    android:id="@+id/help_cancle"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    />
+        </RelativeLayout>
+
+        <EditText
+            android:id="@+id/help_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:gravity="top"
+            android:textSize="14dp"
+            android:scrollbars="vertical"
+            android:layout_below="@id/mac_text"
+            android:background="@drawable/editshape"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:focusable="false"
+            android:clickable="false"
+            />
+
+
+</LinearLayout>

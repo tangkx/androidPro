@@ -4,9 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorBlack">#000000</color>
-    <color name="colortextback">#d5c5f7</color>
-    <color name="colorbackground">#ede0f6</color>
-    <color name="colormainbackground">#f7e3eb</color>
+    <color name="colortextback">#9fc3f2</color>
+    <color name="colorbackground">#d5e5f4</color>
+    <color name="colormainbackground">#ffffff</color>
     <color name="colorselect">#e9ff29</color>
 
     <color name="red">#ffff0000</color>
@@ -62,4 +62,5 @@
 
     <color name="titleColor">#757575</color>
     <color name="titleColorSelected">#F54D33</color>
+    <color name="maincolor">#FF6ca9ff</color>
 </resources>

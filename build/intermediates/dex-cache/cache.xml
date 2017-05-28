@@ -12,21 +12,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.2.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="fa0446a14ed5dd3725047d6399ffea771a564b30">
-        <dex dex="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.2.0_8626e1654489e499b9bed464585093ffc41b6149\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.2.0\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="152de8da301561dcb0946471697a420d8f7a68c5">
         <dex dex="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-25.2.0_8af47971d3a7d9e800323a2782b538a277da7348\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.2.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="fa0446a14ed5dd3725047d6399ffea771a564b30">
+        <dex dex="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.2.0_8626e1654489e499b9bed464585093ffc41b6149\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -90,6 +90,15 @@
         revision="25.0.2"
         sha1="e820b7be8c035dd522da4bc822e8a76c8e27921a">
         <dex dex="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-25.2.0_e7551d4fb99847c0bfd0f8406fcb5592a3a2e5e2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\exploded-aar\com.guoqi.widget\iosdialog\0.2\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="6f6fd17eadd6ffebc15dba2745ae640523660223">
+        <dex dex="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.guoqi.widget-iosdialog-0.2_09a1fb2dd3b87c49a06c3d796147c8e28a16a781\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -160,7 +169,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="aa04bba7cc7123179c0361c0970d7d478c06d313">
+        sha1="73f6b43e1303f2951c0c94114026bf60d80f7f1a">
         <dex dex="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_842688f7a1849543c50032171625439fdc9871d6\classes.dex" />
     </item>
     <item
@@ -169,7 +178,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="7b7bab12b84f53fcc4628b01b791e02afe8b2853">
+        sha1="24cdeb712ecffc8c1eaa0da2784be5aae287e8c9">
         <dex dex="G:\android_studio_projects\vcomputer\androidPro\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_abe03b264750f2f9ea2bcaaad112ed7e0526e228\classes.dex" />
     </item>
     <item
