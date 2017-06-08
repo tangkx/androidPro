@@ -26,9 +26,9 @@ import java.util.List;
 public class FileUtils {
 
     public static final String MAC_FILE_DIR = Environment.getExternalStorageDirectory().
-            getAbsolutePath().toString()+ "/AAVcomputerTestFiles"+"/macFiles";
+            getAbsolutePath().toString()+ "/AAVcomputerFiles"+"/macFiles";
     public static final String ASE_FILE_DIR = Environment.getExternalStorageDirectory().
-            getAbsolutePath().toString()+ "/AAVcomputerTestFiles"+"/aseFiles";
+            getAbsolutePath().toString()+ "/AAVcomputerFiles"+"/aseFiles";
     public static  boolean INIT_FLAG = false;
 
     public static boolean isInitFlag() {
@@ -60,7 +60,7 @@ public class FileUtils {
 
     public static void initDirs() {
         String rootPath = Environment.getExternalStorageDirectory().getAbsolutePath().toString();
-        File myRootDir = new File(rootPath + "/AAVcomputerTestFiles");
+        File myRootDir = new File(rootPath + "/AAVcomputerFiles");
         myRootDir.mkdirs();
         File aseRootDir = new File(myRootDir, "/aseFiles");
         aseRootDir.mkdirs();
@@ -70,37 +70,14 @@ public class FileUtils {
 
     public static void initPackageFiles() {
 
-//        String aseArr =
-//                "LOAD R0,01\r\n" +
-//                        "LOAD R1,FF\r\n" +
-//                        "LOAD R2,02\r\n" +
-//                        "LABEL1:ADD R3,R1,R0\r\n" +
-//                        "JMP R3,LABEL2\r\n" +
-//                        "ADD R4,R1,R2\r\n" +
-//                        "JMP R4,LABEL2\r\n" +
-//                        "SHL R0,01\r\n" +
-//                        "JMP R2,LABEL2\r\n" +
-//                        "SHL R0,08\r\n" +
-//                        "NOT R0\r\n" +
-//                        "JMP R1,LABEL1\r\n" +
-//                        "LABEL2:HALT";
-//
-//        String macArr =
-//                "2007\r\n" +
-//                        "2101\r\n" +
-//                        "2202\r\n" +
-//                        "2300\r\n" +
-//                        "5221\r\n" +
-//                        "5331\r\n" +
-//                        "5232\r\n" +
-//                        "8212\r\n" +
-//                        "8008\r\n" +
-//                        "9000\r\n";
         try {
 
             initDirs();
             outputFile(ProgramEntiys.ASE_PROGRAM_1,"ase_program_1",0);
+            outputFile(ProgramEntiys.ASE_PROGRAM_2,"ase_program_2",0);
             outputFile(ProgramEntiys.MAC_PROGRAM_1,"mac_program_1",1);
+            outputFile(ProgramEntiys.MAC_PROGRAM_2,"mac_program_2",1);
+            outputFile(ProgramEntiys.MAC_PROGRAM_3,"mac_program_3",1);
 
         } catch (Exception e) {
             Log.d("result:", e.toString());
@@ -135,8 +112,11 @@ public class FileUtils {
 
         boolean flag = false;
         File file = new File(path);
-        File[] files = file.listFiles();
+        if(!file.exists()){
+            initDirs();
+        }
 
+        File[] files = file.listFiles();
         for(int i = 0; i < files.length; i++){
             File f = files[i];
             String key = f.getName();
@@ -149,23 +129,18 @@ public class FileUtils {
         return flag;
     }
 
-    public static int outputFile(String[] files, String filename, int flag) {
+    public static String outputFile(String[] files, String filename, int flag) {
 
+        String rootPath = Environment.getExternalStorageDirectory().getAbsolutePath().toString();
+        OutputStream outputStream;
+        File file = null;
         try {
 
-            String rootPath = Environment.getExternalStorageDirectory().getAbsolutePath().toString();
-            OutputStream outputStream;
-            File file;
             if (flag == 0) {
 
-                rootPath = rootPath + "/AAVcomputerTestFiles/aseFiles";
+                rootPath = rootPath + "/AAVcomputerFiles/aseFiles";
                 file = new File(rootPath, filename + ".txt");
                 outputStream = new FileOutputStream(file,false);
-//                if (file.exists()) {
-//
-//                } else {
-//                    file.createNewFile();
-//                }
 
                 for (int i = 0; i < files.length; i++) {
                     outputStream.write(files[i].getBytes());
@@ -177,14 +152,9 @@ public class FileUtils {
 
             } else {
 
-                rootPath = rootPath + "/AAVcomputerTestFiles/macFiles";
+                rootPath = rootPath + "/AAVcomputerFiles/macFiles";
                 file = new File(rootPath, filename + ".txt");
 
-//                if (file.exists()) {
-//                    return -1;
-//                } else {
-//                    file.createNewFile();
-//                }
                 outputStream = new FileOutputStream(file,false);
 
                 for (int i = 0; i < files.length; i++) {
@@ -200,7 +170,7 @@ public class FileUtils {
             Log.d("result:", e.toString());
         }
 
-        return 0;
+        return file.getAbsolutePath().toString();
 
     }
 }

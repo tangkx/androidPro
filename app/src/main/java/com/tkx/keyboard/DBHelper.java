@@ -35,8 +35,6 @@ public class DBHelper extends SQLiteOpenHelper{
         //db.execSQL("INSERT INTO flag VALUES (0)");
         db.insert("flag",null,c);
 
-        db.close();
-
     }
 
     @Override
@@ -52,7 +50,6 @@ public class DBHelper extends SQLiteOpenHelper{
             id = c.getInt(c.getColumnIndex("_flag"));
         }
 
-        dbReader.close();
         return id;
     }
 
@@ -61,6 +58,5 @@ public class DBHelper extends SQLiteOpenHelper{
         ContentValues c = new ContentValues();
         c.put("_flag",val);
         dbWrite.update("flag",c,null,null);
-        dbWrite.close();
     }
 }

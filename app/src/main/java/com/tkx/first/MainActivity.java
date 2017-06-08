@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.guoqi.iosdialog.IOSDialog;
 import com.tkx.entiys.Register;
 import com.tkx.entiys.SimulateData;
 import com.tkx.entiys.SimulateObject;
@@ -59,10 +60,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private Message message;
     private String accountNum;
     private boolean init_flag, action_flag;
-    private DBHelper db;
+    //private DBHelper db;
     private SharedPreferences sharePre;
     private  SharedPreferences.Editor editor;
     private MyBroadcast broadcast;
+    private boolean AUTO_RUN_FLAG = true;
+    private Thread AUTO_RUN_thread;
+    private boolean Runflag = true;
 
 
     @Override
@@ -86,12 +90,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
         registerReceiver(broadcast,filter);
 
         myPermission();
-        db = new DBHelper(MainActivity.this);
+        //db = new DBHelper(MainActivity.this);
 
         sharePre = getSharedPreferences("Program",MODE_PRIVATE);
         editor = sharePre.edit();
         editor.putString("macPro","");
         editor.putString("asePro","");
+        editor.putInt("macline",1);
+        editor.putInt("aseline",1);
         editor.commit();
 
         img_jump = (ImageView) findViewById(R.id.jump_to_edit);
@@ -118,29 +124,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         lAdapter = new ListAdapter(this, simList);
         mList = (ListView) findViewById(R.id.mlist);
         mList.addHeaderView(LayoutInflater.from(this).inflate(R.layout.listhead,null));
-
-//        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//
-////                parent.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
-//                Log.e("result:","LongClick");
-//                lAdapter.setAnimationItem(position);
-//                lAdapter.setAnimationItem(position+1);
-//            }
-//        });
-
-//        mList.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//
-//                int width = v.getWidth();
-//                int heigh = v.getHeight();
-//
-//                return false;
-//            }
-//        });
-
         mList.setAdapter(lAdapter);
 
         lAdapter.setAnimationItem(0);
@@ -168,9 +151,22 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Intent in_jump = new Intent();
                 String macText = sharePre.getString("macPro","");
                 String aseText = sharePre.getString("asePro","");
+                int macline = sharePre.getInt("macline",1);
+                int aseline = sharePre.getInt("aseline",1);
+
+                if(macline == 0){
+                    macline = 1;
+                }
+
+                if(aseline == 0){
+                    aseline = 1;
+                }
 
                 in_jump.putExtra("macPro",macText);
                 in_jump.putExtra("asePro",aseText);
+                in_jump.putExtra("macline",macline);
+                in_jump.putExtra("aseline",aseline);
+
                 in_jump.setClass(MainActivity.this, CodeActivity.class);
                 startActivityForResult(in_jump, 1);
                 break;
@@ -180,6 +176,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 resetRegister();
                 mList.setSelection(0);
                 FileUtils.setInitFlag(false);
+                final IOSDialog dialog = new IOSDialog(this).builder();
+                dialog.setMsg("处理器已成功初始化");
+                dialog.setPositiveButton("确定", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
                 break;
 
             case R.id.btn_action:
@@ -187,8 +192,23 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
 
             case R.id.btn_auto_action:
-                Thread auto = new Thread(new AutoStartSim());
-                auto.start();
+                if(AUTO_RUN_FLAG){
+                    AUTO_RUN_thread = new Thread(new AutoStartSim());
+                    AUTO_RUN_thread.start();
+                    //AUTO_RUN_FLAG = false;
+                    btn_auto_action.setText("停止运行");
+                    Runflag =true;
+
+                }else {
+                    AUTO_RUN_FLAG = true;
+                    btn_auto_action.setText("开始执行机器代码");
+                    message = handler.obtainMessage();
+                    message.what = 16;
+                    handler.sendMessage(message);
+                    Runflag = false;
+                    AUTO_RUN_thread.interrupt();
+                }
+
                 break;
         }
     }
@@ -299,9 +319,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 case 10:
                     MachineTools.showMessageDialog(MainActivity.this,"一段完整的程序执行完成");
+                    btn_auto_action.setText("开始执行机器代码");
                     break;
                 case 11:
                     MachineTools.showMessageDialog(MainActivity.this,"非法指令");
+                    btn_auto_action.setText("开始执行机器代码");
                     break;
                 case 12:
                     //btn_init.setClickable(false);
@@ -316,6 +338,24 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     break;
                 case 14:
                     MachineTools.showMessageDialog(MainActivity.this,"机器指令存在错误");
+                    btn_auto_action.setText("开始执行机器代码");
+                    AUTO_RUN_FLAG = true;
+                    Runflag = true;
+                    break;
+                case 15:
+                    btn_init.setEnabled(false);
+                    btn_action.setEnabled(false);
+                    img_jump.setEnabled(false);
+                    break;
+                case 16:
+                    btn_init.setEnabled(true);
+                    btn_action.setEnabled(true);
+                    img_jump.setEnabled(true);
+                    break;
+                case 17:
+                    index = message.arg1;
+                    String value = (String) message.obj;
+                    setCurrCommand(index, value);
                     break;
 
             }
@@ -419,13 +459,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
      */
     public String getCurrCommand(int index) {
 
-        String firstAddr = SimulateObject.getAccountVal();
-      //  MachineTools.showMessageDialog(this,"firstAddr:"+firstAddr);
+       // String firstAddr = SimulateObject.getAccountVal();
         SimulateData object = (SimulateData)lAdapter.getItem(index);
-        String addr = object.getAddr();
-       // MachineTools.showMessageDialog(this,"addr:"+addr);
+        //String addr = object.getAddr();
         String firstCommand =object.getNumber();
-       // MachineTools.showMessageDialog(this,"firstCommand:"+firstCommand);
 
         String res = firstCommand;
 
@@ -511,8 +548,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int index = transformAcoountToIndex(accountNum);
         String firstCom = getCurrCommand(index);
         String lastCom = getCurrCommand(index+1);
-        String Com = firstCom+lastCom;
-        String code = firstCom.substring(0,1);
+        String Com = (firstCom+lastCom).toUpperCase();
+        String code = firstCom.substring(0,1).toUpperCase();
         String reg = "";
         String reg1 = "";
         String reg2 = "";
@@ -549,7 +586,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 if(Com.matches("^(3[0-5][0-9a-fA-F]{2})$")) {
                     reg = firstCom.substring(1, 2);
                     String value = CountRegister.storeCommand(reg);
-                    index = transformAcoountToIndex(accountNum);
+                    index = transformAcoountToIndex(lastCom);
                     setCurrCommand(index, value);
                     updateAccountNum(accountNum);
                 }else{
@@ -570,7 +607,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     message.what = 14;
                     handler.sendMessage(message);
                 }
-
 
                 break;
             case "5":
@@ -647,14 +683,26 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
 
                 break;
+            case "A":
+                if(Com.matches("^(A0[0-5]{2})$")) {
+                    reg1 = lastCom.substring(0, 1);
+                    reg2 = lastCom.substring(1, 2);
+                    CountRegister.xchgCommand(reg1,reg2);
+                    updateAccountNum(accountNum);
+                }else{
+                    message = handler.obtainMessage();
+                    message.what = 14;
+                    handler.sendMessage(message);
+                }
+
+                break;
             default:
-//                MachineTools.showMessageDialog(this,"非法指令");
+
                 message = handler.obtainMessage();
                 message.what = 11;
                 handler.sendMessage(message);
                 break;
         }
-
 
     }
 
@@ -673,11 +721,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             String reg1 = "";
             String reg2 = "";
             String Com = "";
-            boolean Runflag = true;
-
             //设置初始化和单步执行不可用
             message = handler.obtainMessage();
-            message.what = 12;
+            message.what = 15;
             handler.sendMessage(message);
 
             do {
@@ -717,8 +763,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                     String firstCom = getCurrCommand(index);
                     String lastCom = getCurrCommand(index+1);
-                    Com = firstCom+lastCom;
-                    code = firstCom.substring(0,1);
+                    Com = (firstCom+lastCom).toUpperCase();
+                    code = firstCom.substring(0,1).toUpperCase();
                     reg = "";
                     reg1 = "";
                     reg2 = "";
@@ -758,8 +804,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             if(Com.matches("^(3[0-5][0-9a-fA-F]{2})$")) {
                                 reg = firstCom.substring(1, 2);
                                 String value = CountRegister.storeCommand(reg);
-                                index = transformAcoountToIndex(accountNum);
-                                setCurrCommand(index, value);
+                                index = transformAcoountToIndex(lastCom);
+                                message = handler.obtainMessage();
+                                message.arg1 = index;
+                                message.obj = value;
+                                message.what = 17;
+                                handler.sendMessage(message);
                                 updateAccountNum(accountNum);
                             }else{
                                 message = handler.obtainMessage();
@@ -855,12 +905,27 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                 message.what = 10;
                                 handler.sendMessage(message);
                                 Runflag = false;
+                                updateAccountNum("-2");
                             }else{
                                 message = handler.obtainMessage();
                                 message.what = 14;
                                 handler.sendMessage(message);
                                 Runflag = false;
                             }
+                            break;
+                        case "A":
+                            if(Com.matches("^(A0[0-5]{2})$")) {
+                                reg1 = lastCom.substring(0, 1);
+                                reg2 = lastCom.substring(1, 2);
+                                CountRegister.xchgCommand(reg1,reg2);
+                                updateAccountNum(accountNum);
+                            }else{
+                                message = handler.obtainMessage();
+                                message.what = 14;
+                                handler.sendMessage(message);
+                                Runflag = false;
+                            }
+
                             break;
                         default:
                             message = handler.obtainMessage();
@@ -881,21 +946,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             }while (Runflag);
 
-//            if(code.equals("9")){
-//                if(Com.matches("^(9000)$")) {
-//                    message = handler.obtainMessage();
-//                    message.what = 10;
-//                    handler.sendMessage(message);
-//                }
-//            }else{
-//                message = handler.obtainMessage();
-//                message.what = 11;
-//                handler.sendMessage(message);
-//            }
-
-            //设置初始化和单步执行可用
             message = handler.obtainMessage();
-            message.what = 13;
+            message.what = 16;
             handler.sendMessage(message);
 
             Thread.interrupted();
@@ -981,6 +1033,33 @@ public class MainActivity extends Activity implements View.OnClickListener {
             lAdapter.setAnimationItem(position);
             lAdapter.setAnimationItem(position+1);
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+                final IOSDialog dialog = new IOSDialog(this).builder();
+                dialog.setMsg("学无止境，是否真的要现在退出");
+                dialog.setNegativeButton("去意已决", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        finish();
+                    }
+                });
+                dialog.setPositiveButton("继续学习", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

@@ -42,7 +42,7 @@
         android:layout_width="160dp"
         android:layout_height="match_parent"
         android:layout_below="@id/top_bar"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="2dp"
         android:orientation="vertical">
 
         <TextView
@@ -75,7 +75,13 @@
         android:layout_height="match_parent"
         android:layout_below="@id/top_bar"
         android:layout_toRightOf="@id/flist"
-        android:orientation="horizontal">
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#FF6ca9ff"
+            />
 
     </LinearLayout>
 
@@ -84,7 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/top_bar"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="2dp"
         android:layout_toRightOf="@id/middle"
         android:background="@color/colorbackground"
         android:orientation="vertical">

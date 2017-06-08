@@ -25,7 +25,7 @@ import java.util.List;
 
 public class WelcomeActivity extends Activity implements View.OnClickListener,ViewPager.OnPageChangeListener{
 
-    private Button btn_skip, ed_time;
+    private Button btn_skip;
     private ViewPager viewPager;
     private int[] imageId = {R.mipmap.p1, R.mipmap.p2, R.mipmap.p3, R.mipmap.p4};
     private List<View> viewList;
@@ -44,11 +44,12 @@ public class WelcomeActivity extends Activity implements View.OnClickListener,Vi
         initView();
         thread = new Thread(skipRun);
         thread.start();
+
     }
 
     public void initView(){
 
-        ed_time = (Button) findViewById(R.id.back_time);
+        //ed_time = (Button) findViewById(R.id.back_time);
         btn_skip = (Button) findViewById(R.id.to_main);
         btn_skip.setOnClickListener(this);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -83,7 +84,7 @@ public class WelcomeActivity extends Activity implements View.OnClickListener,Vi
 
     public Runnable skipRun = new Runnable() {
 
-        int time = 7;
+        int time = 10;
         @Override
         public void run() {
 
@@ -127,7 +128,7 @@ public class WelcomeActivity extends Activity implements View.OnClickListener,Vi
 
                 case 1:
                     int time = (int) msg.obj;
-                    ed_time.setText(time+"s");
+                    btn_skip.setText("跳过"+"("+time+"s"+")");
                     if(time == 0){
 
                         Intent intent = new Intent();

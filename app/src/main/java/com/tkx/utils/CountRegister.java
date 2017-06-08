@@ -89,5 +89,12 @@ public class CountRegister {
         return 0;
     }
 
+    public static void xchgCommand(String r, String s){
+        String regVal = SimulateObject.getRegisterVal(r);
+        String regVal1 = SimulateObject.getRegisterVal(s);
+        SimulateObject.setRegisterVal(r,regVal1);
+        SimulateObject.setRegisterVal(s,regVal);
+    }
+
 
 }

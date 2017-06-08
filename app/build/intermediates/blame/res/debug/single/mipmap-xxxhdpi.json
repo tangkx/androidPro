@@ -1,5 +1,9 @@
 [
     {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\comhelp.png",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\comhelp.png"
+    },
+    {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\load.png",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\load.png"
     },
@@ -38,6 +42,10 @@
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\p3.png",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\p3.png"
+    },
+    {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\delete.png",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\mipmap-xxxhdpi\\delete.png"
     },
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi\\nav_view_bac.png",

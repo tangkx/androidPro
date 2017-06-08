@@ -32,12 +32,12 @@
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\sym_keyboard_enter.png"
     },
     {
-        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\sym_keyboard_shift.png",
-        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\sym_keyboard_shift.png"
-    },
-    {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\sym_keyboard_shift.png",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\sym_keyboard_shift.png"
     },
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml",
@@ -96,12 +96,12 @@
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.4.0\\res\\drawable\\common_plus_signin_btn_icon_dark.xml"
     },
     {
-        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\jumptoedit.png",
-        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\jumptoedit.png"
-    },
-    {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\selectors.xml",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\selectors.xml"
+    },
+    {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\jumptoedit.png",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\jumptoedit.png"
     },
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_material.xml",
@@ -152,16 +152,16 @@
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_item_background_holo_light.xml"
     },
     {
-        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\point_selector.xml",
-        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\point_selector.xml"
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_tab_indicator_material.xml"
     },
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_plus_signin_btn_icon_light.xml",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.4.0\\res\\drawable\\common_plus_signin_btn_icon_light.xml"
     },
     {
-        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
-        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_tab_indicator_material.xml"
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\point_selector.xml",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\point_selector.xml"
     },
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\sym_keyboard_delete.png",
@@ -256,6 +256,10 @@
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\edittopshape.xml"
     },
     {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\edilineshape.xml",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\edilineshape.xml"
+    },
+    {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_small_material.xml",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\25.2.0\\res\\drawable\\abc_ratingbar_small_material.xml"
     },
@@ -296,12 +300,12 @@
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\sym_keyboard_done.png"
     },
     {
-        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\sym_keyboard_fangkuohao_left.png",
-        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\sym_keyboard_fangkuohao_left.png"
-    },
-    {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\toast_alert_bg.9.png",
         "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\exploded-aar\\com.guoqi.widget\\iosdialog\\0.2\\res\\drawable\\toast_alert_bg.9.png"
+    },
+    {
+        "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\sym_keyboard_fangkuohao_left.png",
+        "source": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\src\\main\\res\\drawable\\sym_keyboard_fangkuohao_left.png"
     },
     {
         "merged": "G:\\android_studio_projects\\vcomputer\\androidPro\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",

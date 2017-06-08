@@ -9,20 +9,20 @@
         android:layout_height="0dp"
         android:layout_weight="3">
 
-        <Button
-            android:id="@+id/back_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/btnskipshape"
-            android:clickable="false"
-            android:maxHeight="0dp"
-            android:maxWidth="0dp"
-            android:text="倒计时"
-            android:textColor="@color/white"
-            android:textSize="15dp" />
+        <!--<Button-->
+            <!--android:id="@+id/back_time"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_marginRight="20dp"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:background="@drawable/btnskipshape"-->
+            <!--android:clickable="false"-->
+            <!--android:maxHeight="0dp"-->
+            <!--android:maxWidth="0dp"-->
+            <!--android:text="倒计时"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="15dp" />-->
 
         <Button
             android:id="@+id/to_main"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="20dp"
             android:orientation="horizontal">
 
             <ImageView
